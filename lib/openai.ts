@@ -1,9 +1,9 @@
-import OpenAI from 'openai'
+import Anthropic from '@anthropic-ai/sdk'
 import styleMemory from '@/data/style_memory.json'
 
 export type RedActionMode = 'general' | 'ocp' | 'arabic_rewrite'
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 // ─── Prompts (ported from RedActionAIService.swift) ───────────────────────────
 
@@ -205,17 +205,17 @@ ${deeplArabic}
 Required output:
 Return only the final polished Arabic text.`
 
-  const response = await client.chat.completions.create({
-    model: 'gpt-4o',
+  const response = await client.messages.create({
+    model: 'claude-3-5-haiku-20241022',
+    max_tokens: 8000,
+    system: systemPrompt,
     messages: [
-      { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt },
     ],
-    temperature: 0.25,
-    max_tokens: 8000,
   })
 
-  return cleanOutput(response.choices[0]?.message?.content ?? '')
+  const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
+  return cleanOutput(text)
 }
 
 export async function rewriteArabic(arabicText: string): Promise<string> {
@@ -229,17 +229,17 @@ ${arabicText}
 Required output:
 Return only the rewritten Arabic text.`
 
-  const response = await client.chat.completions.create({
-    model: 'gpt-4o',
+  const response = await client.messages.create({
+    model: 'claude-3-5-haiku-20241022',
+    max_tokens: 8000,
+    system: systemPrompt,
     messages: [
-      { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt },
     ],
-    temperature: 0.3,
-    max_tokens: 8000,
   })
 
-  return cleanOutput(response.choices[0]?.message?.content ?? '')
+  const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
+  return cleanOutput(text)
 }
 
 function cleanOutput(text: string): string {
