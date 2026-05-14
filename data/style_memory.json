@@ -1,0 +1,442 @@
+{
+  "version": "1.5-annual-report-curated",
+  "project": "RedAction",
+  "language_pair": "fr-ar",
+  "description": "ذاكرة أسلوبية رسمية لمشروع RedAction مستخرجة ومنقحة من التقرير السنوي 2023 والنصوص المؤسساتية لمجموعة OCP.",
+  "last_updated": "2026-05-10",
+  "style_identity": {
+    "target_style": "عربية مؤسسية طبيعية، رصينة، مغاربية خفيفة، دقيقة دلاليا، وسلسة القراءة",
+    "core_principle": "ترجمة الأفكار الفرنسية بدقة مع تحرير البنية العربية من أثر التركيب الفرنسي",
+    "avoid": [
+      "الترجمة الحرفية",
+      "العربية البيروقراطية الثقيلة",
+      "المجاز المفرط",
+      "التضخيم الخطابي",
+      "التكرار الآلي لأدوات الربط",
+      "الجمل الطويلة المتراصة"
+    ],
+    "prefer": [
+      "الكثافة المؤسسية",
+      "الجمل العربية المتوسطة",
+      "الروابط المنطقية الطبيعية",
+      "الأفعال ذات الفاعلية المؤسسية",
+      "المصطلحات المغربية الرسمية عند ثباتها",
+      "الحفاظ الصارم على الأرقام والبيانات"
+    ]
+  },
+  "canonical_rules": [
+    {
+      "id": "rule_001",
+      "name": "naturalize_arabic_structure",
+      "rule": "لا تنسخ ترتيب الجملة الفرنسية إذا كان يثقل العربية. أعد بناء الجملة بما يحافظ على المعنى ويمنح النص تدفقا عربيا طبيعيا.",
+      "risk": "low"
+    },
+    {
+      "id": "rule_002",
+      "name": "preserve_semantic_fidelity",
+      "rule": "كل إعادة صياغة يجب أن تحافظ بدقة على المعنى، الأرقام، الجهات، الأزمنة، العلاقات السببية، والالتزامات المؤسسية.",
+      "risk": "critical"
+    },
+    {
+      "id": "rule_003",
+      "name": "avoid_literal_heart_metaphor",
+      "pattern": "au cœur de",
+      "preferred": [
+        "في صلب",
+        "في صميم",
+        "جوهر"
+      ],
+      "avoid": [
+        "في قلب"
+      ],
+      "risk": "low"
+    },
+    {
+      "id": "rule_004",
+      "name": "institutional_agency",
+      "rule": "عند الإمكان، حوّل الصيغ الفرنسية الجامدة أو الاسمية إلى أفعال عربية واضحة تظهر الفاعلية المؤسسية.",
+      "examples": [
+        "تعمل المجموعة على",
+        "تسعى المجموعة إلى",
+        "تواصل المجموعة",
+        "تلتزم المجموعة",
+        "تمكنت المجموعة من"
+      ],
+      "risk": "low"
+    },
+    {
+      "id": "rule_005",
+      "name": "controlled_warmth",
+      "rule": "أضف دفئا مؤسسيا مضبوطا عند الحاجة، لكن تجنب الشعرية الزائدة أو اللغة التسويقية اللامعة.",
+      "risk": "medium"
+    },
+    {
+      "id": "rule_006",
+      "name": "financial_precision",
+      "rule": "في المقاطع المالية، فضّل الدقة والرصانة على البلاغة. لا تضف زخرفة أسلوبية.",
+      "risk": "critical"
+    },
+    {
+      "id": "rule_007",
+      "name": "technical_restraint",
+      "rule": "في النصوص التقنية والصناعية، حافظ على المصطلح، التسلسل، والأرقام، مع تحسين الانسيابية فقط.",
+      "risk": "critical"
+    },
+    {
+      "id": "rule_008",
+      "name": "branding_exception",
+      "rule": "المجازات القوية مثل منح الحياة أو إطلاق العنان تستخدم فقط في نصوص الهوية، الرؤية، العلامة، أو الخطاب الإلهامي.",
+      "risk": "high"
+    }
+  ],
+  "terminology_preferences": {
+    "stable": {
+      "développement durable": "التنمية المستدامة",
+      "transition énergétique": "الانتقال الطاقي",
+      "neutralité carbone": "الحياد الكربوني",
+      "économie circulaire": "الاقتصاد الدائري",
+      "efficacité énergétique": "النجاعة الطاقية",
+      "gestion de l'eau": "تدبير المياه",
+      "agriculture": "فلاحة",
+      "agriculteurs": "فلاحون",
+      "customisation": "مشخصة",
+      "engrais customisés": "أسمدة مشخصة",
+      "parties prenantes": "الأطراف المعنية",
+      "empreinte environnementale": "الأثر البيئي",
+      "chaîne de valeur": "سلسلة القيمة",
+      "capital humain": "الرأسمال البشري",
+      "sécurité alimentaire": "الأمن الغذائي",
+      "énergies renouvelables": "الطاقات المتجددة",
+      "eau non conventionnelle": "المياه غير التقليدية"
+    },
+    "contextual": {
+      "performance": [
+        "الأداء",
+        "الكفاءة",
+        "المردودية"
+      ],
+      "gouvernance": [
+        "الحكامة",
+        "الحوكمة"
+      ],
+      "acteur": [
+        "فاعل",
+        "جهة فاعلة",
+        "رائد"
+      ],
+      "leader": [
+        "رائد",
+        "فاعل عالمي رائد"
+      ],
+      "innovation": [
+        "الابتكار",
+        "حلول مبتكرة"
+      ]
+    },
+    "avoid_or_limit": {
+      "jouer un rôle": [
+        "يلعب دورا"
+      ],
+      "dans le cadre de": [
+        "في إطار"
+      ],
+      "au niveau de": [
+        "على مستوى"
+      ],
+      "cela vient": [
+        "يأتي ذلك"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "id": "style_001",
+      "domain": "sustainability",
+      "fr": "Le développement durable est au cœur de notre stratégie.",
+      "deepl": "التنمية المستدامة في قلب استراتيجيتنا.",
+      "final": "التنمية المستدامة في صلب استراتيجيتنا.",
+      "style_note": "تجنب 'قلب' لصالح 'صلب' ذات النبرة المؤسسية الرصينة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_002",
+      "domain": "strategy",
+      "fr": "L’innovation est au cœur de la stratégie du Groupe OCP.",
+      "deepl": "الابتكار في قلب استراتيجية مجموعة OCP.",
+      "final": "الابتكار هو جوهر استراتيجية مجموعة OCP.",
+      "style_note": "تحويل المجاز الشائع إلى صياغة مؤسسية مكثفة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_003",
+      "domain": "institutional",
+      "fr": "Nous jouons un rôle de premier plan.",
+      "deepl": "نحن نلعب دورا رائدا.",
+      "final": "نضطلع بدور أساسي.",
+      "style_note": "تجنب التعبير الآلي 'نلعب دورا' واستبداله بفعل مؤسسي رصين.",
+      "risk": "low"
+    },
+    {
+      "id": "style_004",
+      "domain": "agriculture",
+      "fr": "Les agriculteurs ont besoin de solutions adaptées aux sols locaux.",
+      "deepl": "يحتاج المزارعون إلى حلول مناسبة للتربة المحلية.",
+      "final": "يحتاج الفلاحون إلى حلول ملائمة لخصوصيات التربة المحلية.",
+      "style_note": "اعتماد 'الفلاحون' و'ملائمة' للاقتراب من الأسلوب المغربي المؤسساتي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_005",
+      "domain": "sustainability",
+      "fr": "Une agriculture respectueuse de l’environnement.",
+      "deepl": "زراعة تحترم البيئة.",
+      "final": "فلاحة تراعي البيئة وتحافظ على الموارد الطبيعية.",
+      "style_note": "توسيع دلالي مضبوط يخدم خطاب الاستدامة دون مبالغة.",
+      "risk": "medium"
+    },
+    {
+      "id": "style_006",
+      "domain": "financial",
+      "fr": "Le chiffre d’affaires d’OCP au titre de l’exercice 2023.",
+      "deepl": "رقم أعمال OCP للسنة المالية 2023.",
+      "final": "إيرادات مجموعة OCP عن السنة المالية 2023.",
+      "style_note": "اعتماد مصطلح مالي عربي أكثر معيارية ورصانة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_007",
+      "domain": "financial",
+      "fr": "La marge brute s’est élevée à 50,5 milliards de dirhams.",
+      "deepl": "ارتفعت الهامش الإجمالي إلى 50,5 مليار درهم.",
+      "final": "بلغ هامش الربح الإجمالي 50,5 مليار درهم.",
+      "style_note": "استخدام 'بلغ' للسرد المالي المحايد والدقيق.",
+      "risk": "low"
+    },
+    {
+      "id": "style_008",
+      "domain": "financial",
+      "fr": "Les dépenses d’investissement se sont élevées à...",
+      "deepl": "بلغت نفقات الاستثمار...",
+      "final": "بلغت النفقات الرأسمالية...",
+      "style_note": "مصطلح محاسبي أدق في سياق CapEx.",
+      "risk": "low"
+    },
+    {
+      "id": "style_009",
+      "domain": "governance",
+      "fr": "Les parties prenantes.",
+      "deepl": "أصحاب المصلحة.",
+      "final": "الأطراف المعنية.",
+      "style_note": "مصطلح مؤسسي أكثر حيادا واتساقا مع أسلوب التقرير.",
+      "risk": "low"
+    },
+    {
+      "id": "style_010",
+      "domain": "governance",
+      "fr": "Gouvernance d’entreprise.",
+      "deepl": "حوكمة الشركات.",
+      "final": "الحكامة المؤسساتية.",
+      "style_note": "اختيار مغاربي رسمي مناسب للسياقات المؤسساتية، مع قابلية المراجعة حسب العميل.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_011",
+      "domain": "strategy",
+      "fr": "Transformation organisationnelle multidimensionnelle.",
+      "deepl": "تحول تنظيمي متعدد الأبعاد.",
+      "final": "تحول مؤسسي شمولي متعدد المحاور.",
+      "style_note": "إثراء استراتيجي مضبوط يجعل العبارة أكثر مؤسساتية وأقل حرفية.",
+      "risk": "medium"
+    },
+    {
+      "id": "style_012",
+      "domain": "strategy",
+      "fr": "Must-Win-Battles.",
+      "deepl": "معارك يجب الفوز بها.",
+      "final": "الأولويات الاستراتيجية الحاسمة.",
+      "style_note": "توطين مصطلح إداري إنجليزي بدل ترجمته حرفيا.",
+      "risk": "low"
+    },
+    {
+      "id": "style_013",
+      "domain": "industrial",
+      "fr": "Plateforme industrielle intégrée.",
+      "deepl": "منصة صناعية متكاملة.",
+      "final": "مركب صناعي متكامل.",
+      "style_note": "تفضيل 'مركب' في السياق الصناعي المغربي عند الحديث عن مواقع إنتاجية كبرى.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_014",
+      "domain": "performance",
+      "fr": "Performance opérationnelle.",
+      "deepl": "الأداء التشغيلي.",
+      "final": "الكفاءة التشغيلية.",
+      "style_note": "تفضيل 'الكفاءة' عندما يكون السياق مرتبطا بالتحسين والنجاعة.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_015",
+      "domain": "esg",
+      "fr": "Empreinte environnementale.",
+      "deepl": "البصمة البيئية.",
+      "final": "الأثر البيئي.",
+      "style_note": "تفضيل 'الأثر' في التقارير الرسمية، مع ترك 'البصمة' لسياقات الكربون المحددة.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_016",
+      "domain": "temporal",
+      "fr": "À l’horizon 2040.",
+      "deepl": "في أفق 2040.",
+      "final": "في أفق سنة 2040.",
+      "style_note": "إضافة 'سنة' للدقة الزمنية في الصياغة الإدارية العربية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_017",
+      "domain": "branding",
+      "fr": "Notre plus grand atout n’est pas le phosphate, mais l’Humain.",
+      "deepl": "أكبر ميزة لنا ليست الفوسفاط، بل الإنسان.",
+      "final": "ثروتنا الكبرى ليست الفوسفاط بل العنصر البشري.",
+      "style_note": "اختيار 'ثروتنا الكبرى' يمنح العبارة قوة مؤسساتية وإنسانية دون مبالغة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_018",
+      "domain": "branding",
+      "fr": "Donner vie au phosphore.",
+      "deepl": "إعطاء الحياة للفوسفور.",
+      "final": "منح الفسفور للحياة.",
+      "style_note": "صياغة هوية/علامة فقط، لا تعمم على النصوص المالية أو التقنية.",
+      "risk": "branding_only"
+    },
+    {
+      "id": "style_019",
+      "domain": "strategy",
+      "fr": "Libérer tout le potentiel du phosphate marocain.",
+      "deepl": "تحرير كل إمكانات الفوسفاط المغربي.",
+      "final": "إطلاق العنان لكامل إمكانات الفوسفاط المغربي.",
+      "style_note": "مجاز مؤسسي مناسب للنصوص الرؤيوية والاستراتيجية.",
+      "risk": "medium"
+    },
+    {
+      "id": "style_020",
+      "domain": "agriculture",
+      "fr": "Le bon nutriment, au bon dosage, au bon moment et au bon endroit.",
+      "deepl": "المغذي المناسب، بالجرعة المناسبة، في الوقت والمكان المناسبين.",
+      "final": "المغذيات المناسبة بالكمية المناسبة، في الوقت والمكان المناسبين.",
+      "style_note": "صياغة عربية متوازنة وواضحة للمبدأ التقني 4R.",
+      "risk": "low"
+    },
+    {
+      "id": "style_021",
+      "domain": "strategy",
+      "fr": "Une transition agricole juste et rapide.",
+      "deepl": "انتقال زراعي عادل وسريع.",
+      "final": "تحول فلاحي عادل وسريع.",
+      "style_note": "اعتماد 'فلاحي' و'تحول' بما ينسجم مع النبرة المؤسساتية المغربية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_022",
+      "domain": "sustainability",
+      "fr": "Contribuer à la sécurité alimentaire mondiale.",
+      "deepl": "المساهمة في الأمن الغذائي العالمي.",
+      "final": "المساهمة في تحقيق الأمن الغذائي العالمي.",
+      "style_note": "إضافة 'تحقيق' تجعل العبارة أكثر طبيعية في العربية المؤسسية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_023",
+      "domain": "innovation",
+      "fr": "L’innovation est le moteur de la croissance du Groupe.",
+      "deepl": "الابتكار هو محرك نمو المجموعة.",
+      "final": "يعد الابتكار رافعة أساسية لنمو المجموعة وتطورها.",
+      "style_note": "تحويل استعارة 'المحرك' إلى 'رافعة' أكثر مؤسساتية وسلاسة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_024",
+      "domain": "industrial",
+      "fr": "Allier croissance de la production et préservation des ressources.",
+      "deepl": "الجمع بين نمو الإنتاج والحفاظ على الموارد.",
+      "final": "تحقيق التوازن بين النمو المستدام للإنتاج والمحافظة على الموارد.",
+      "style_note": "إبراز فكرة التوازن بدل الجمع الميكانيكي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_025",
+      "domain": "commercial",
+      "fr": "Agilité dans un environnement en constante évolution.",
+      "deepl": "رشاقة في بيئة دائمة التطور.",
+      "final": "مرونة في بيئة دائمة التطور.",
+      "style_note": "تفضيل 'مرونة' على 'رشاقة' في سياق الأعمال والأسواق.",
+      "risk": "low"
+    },
+    {
+      "id": "style_026",
+      "domain": "commercial",
+      "fr": "OCP a su faire preuve d’agilité.",
+      "deepl": "عرفت OCP كيف تثبت رشاقتها.",
+      "final": "أثبتت مجموعة OCP قدرتها على التكيف السريع.",
+      "style_note": "استبدال الصياغة الحرفية بصياغة عربية مؤسسية ذات فاعلية واضحة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_027",
+      "domain": "sustainability",
+      "fr": "Réduire l’empreinte hydrique du Groupe.",
+      "deepl": "تقليل البصمة المائية للمجموعة.",
+      "final": "تقليص الأثر المائي للمجموعة.",
+      "style_note": "تفضيل 'الأثر' في السياق البيئي العام.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_028",
+      "domain": "social",
+      "fr": "Une réponse concrète, ancrée dans le terrain.",
+      "deepl": "استجابة ملموسة، متجذرة في الميدان.",
+      "final": "إجابة ملموسة وراسخة على أرض الواقع.",
+      "style_note": "تعبير عربي طبيعي يحافظ على قوة الصورة دون حرفية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_029",
+      "domain": "social",
+      "fr": "Construire un avenir plus juste, plus résilient et plus durable.",
+      "deepl": "بناء مستقبل أكثر عدلا وأكثر مرونة وأكثر استدامة.",
+      "final": "بناء مستقبل أكثر عدلا، وأكثر قدرة على الصمود، وأكثر استدامة.",
+      "style_note": "ترجمة resilience بـ'القدرة على الصمود' في السياق التنموي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_030",
+      "domain": "africa",
+      "fr": "Le grenier du monde.",
+      "deepl": "مخزن العالم.",
+      "final": "سلة غذاء العالم.",
+      "style_note": "توطين المجاز بما يلائم العربية المؤسسية وسياق الأمن الغذائي.",
+      "risk": "low"
+    }
+  ],
+  "risk_policy": {
+    "low": "يمكن اعتماد المثال كقاعدة عامة.",
+    "medium": "يستخدم بحذر حسب نوع النص والنبرة.",
+    "contextual": "لا يحول إلى قاعدة مطلقة؛ يعتمد فقط إذا وافق سياق الوثيقة أو العميل.",
+    "branding_only": "يستخدم فقط في نصوص الهوية والرؤية والتواصل الإلهامي.",
+    "critical": "يجب احترامه بصرامة لأنه مرتبط بالدقة أو الأرقام أو المصطلحات."
+  },
+  "prompt_usage_guidelines": {
+    "max_examples_per_request": 6,
+    "selection_strategy": "اختر الأمثلة الأقرب إلى مجال النص: financial, governance, sustainability, agriculture, industrial, branding.",
+    "do_not_include_all_memory_in_prompt": true,
+    "recommended_flow": [
+      "تحديد مجال النص",
+      "اختيار 3 إلى 6 أمثلة ذات صلة",
+      "تطبيق القواعد العامة",
+      "إعادة الصياغة",
+      "التحقق من الدقة مقابل النص الفرنسي"
+    ]
+  }
+}

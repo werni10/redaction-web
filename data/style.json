@@ -1,0 +1,188 @@
+{
+  "expressions": [
+
+    {
+      "fr": "dans le cadre de",
+      "ar": "في إطار"
+    },
+
+    {
+      "fr": "s'inscrit dans",
+      "ar": "يندرج في إطار"
+    },
+
+    {
+      "fr": "contribue à",
+      "ar": "يساهم في"
+    },
+
+    {
+      "fr": "vise à",
+      "ar": "يهدف إلى"
+    },
+
+    {
+      "fr": "grâce à",
+      "ar": "بفضل"
+    },
+
+    {
+      "fr": "à travers",
+      "ar": "من خلال"
+    },
+
+    {
+      "fr": "En parallèle",
+      "ar": "موازاة مع ذلك"
+    },
+
+    {
+      "fr": "dans ce contexte",
+      "ar": "في هذا السياق"
+    },
+
+    {
+      "fr": "transition énergétique",
+      "ar": "التحول الطاقي"
+    },
+
+    {
+      "fr": "neutralité carbone",
+      "ar": "الحياد الكربوني"
+    },
+
+    {
+      "fr": "eaux non conventionnelles",
+      "ar": "المياه غير التقليدية"
+    },
+
+    {
+      "fr": "souveraineté hydrique",
+      "ar": "السيادة المائية"
+    },
+
+    {
+      "fr": "sécurité alimentaire",
+      "ar": "الأمن الغذائي"
+    },
+
+    {
+      "fr": "fertilisation de précision",
+      "ar": "التسميد الدقيق"
+    },
+
+    {
+      "fr": "fertilisation raisonnée",
+      "ar": "التسميد المعقلن"
+    },
+
+    {
+      "fr": "nutrition des plantes",
+      "ar": "تغذية النباتات"
+    },
+
+    {
+      "fr": "santé des sols",
+      "ar": "صحة التربة"
+    },
+
+    {
+      "fr": "engrais customisés",
+      "ar": "أسمدة مشخصة"
+    },
+
+    {
+      "fr": "modèle intégré",
+      "ar": "نموذج متكامل"
+    },
+
+    {
+      "fr": "feuille de route",
+      "ar": "خارطة الطريق"
+    },
+
+    {
+      "fr": "jalon structurant",
+      "ar": "إنجاز هيكلي"
+    },
+
+    {
+      "fr": "étape clé",
+      "ar": "خطوة محورية"
+    },
+
+    {
+      "fr": "acteur de référence",
+      "ar": "فاعل مرجعي"
+    },
+
+    {
+      "fr": "leader mondial",
+      "ar": "رائد عالمي"
+    },
+
+    {
+      "fr": "économie circulaire",
+      "ar": "الاقتصاد الدائري"
+    }
+
+  ],
+
+  "glossary": {
+
+    "الانتقال الطاقي": "التحول الطاقي",
+
+    "التخصيص": "التشخيص",
+
+    "الأسمدة المخصصة": "الأسمدة المشخصة",
+
+    "الصحة الترابية": "صحة التربة",
+
+    "الاستقلال المائي": "الاستقلالية المائية",
+
+    "الطاقة المتجددة": "الطاقات المتجددة",
+
+    "رائد عالمي": "رائدا عالميا"
+
+  },
+
+  "rules": [
+
+    {
+      "type": "replace",
+      "from": "من أجل",
+      "to": "لـ"
+    },
+
+    {
+      "type": "replace",
+      "from": "وذلك من خلال",
+      "to": "من خلال"
+    },
+
+    {
+      "type": "replace",
+      "from": "فيما يتعلق",
+      "to": "في ما يتعلق"
+    },
+
+    {
+      "type": "replace",
+      "from": "التي تهدف إلى",
+      "to": "الرامية إلى"
+    },
+
+    {
+      "type": "replace",
+      "from": "يسمح ب",
+      "to": "يمكن من"
+    },
+
+    {
+      "type": "regex",
+      "from": "\\s+،",
+      "to": "،"
+    }
+
+  ]
+}
