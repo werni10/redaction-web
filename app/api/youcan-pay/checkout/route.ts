@@ -30,6 +30,11 @@ export async function POST(req: NextRequest) {
       failureUrl: `${returnUrl}/settings?payment=failed`,
     })
 
+    console.log('YouCanPay checkout token:', token)
+    if (!token.transactionId) {
+      return NextResponse.json({ error: 'YouCanPay did not return a transaction_id' }, { status: 500 })
+    }
+
     return NextResponse.json({
       transactionId: token.transactionId,
       amount: token.amount,

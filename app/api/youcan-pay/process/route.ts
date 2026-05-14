@@ -14,7 +14,10 @@ export async function POST(req: NextRequest) {
     const { transactionId, amount, plan, cardNumber, expireDate, cvv, cardholderName } = await req.json()
 
     if (!transactionId || !amount || !plan) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      return NextResponse.json({
+        error: 'Missing required fields',
+        debug: { transactionId: !!transactionId, amount: !!amount, plan: !!plan }
+      }, { status: 400 })
     }
 
     if (!cardNumber || !expireDate || !cvv || !cardholderName) {
