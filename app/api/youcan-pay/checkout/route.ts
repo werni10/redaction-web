@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import crypto from 'crypto'
 import { createClient } from '@/lib/supabase/server'
-import { createCheckoutToken } from '@/lib/youcan-pay'
 import { SUBSCRIPTION_AMOUNTS } from '@/lib/subscriptions'
 
 export async function POST(req: NextRequest) {
@@ -23,24 +23,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid plan amount' }, { status: 400 })
     }
 
-    const returnUrl = req.headers.get('origin') || 'https://redaction.ai'
+    // Generate order ID directly (skip tokenize step)
+    const orderId = crypto.randomUUID()
 
-    const token = await createCheckoutToken({
-      amount: amount || 0,
-      currency: 'USD',
-      customerEmail: user.email || '',
-      customerId: user.id,
-      description: `RedAction ${plan} subscription`,
-      successUrl: `${returnUrl}/settings?payment=success`,
-      failureUrl: `${returnUrl}/settings?payment=failed`,
-      webhookUrl: `${returnUrl}/api/youcan-pay/webhooks`,
-    })
-
-    // Store transaction token in session or client for payment processing
+    // Store transaction details in session or client for payment processing
     return NextResponse.json({
-      token: token.token,
-      amount: token.amount,
-      orderId: token.orderId,
+      token: orderId,
+      amount: amount || 0,
+      orderId,
       plan,
       plan_name: plan === 'pro' ? 'Pro' : 'Enterprise',
     })

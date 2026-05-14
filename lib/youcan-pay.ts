@@ -75,11 +75,11 @@ export interface CardDetails {
 }
 
 export async function processPayment(
-  token: string,
+  _token: string,
   amount: number,
   customerEmail: string,
   cardDetails: CardDetails,
-  orderId?: string
+  orderId: string
 ): Promise<{ transactionId: string; status: string }> {
   if (!YOUCAN_PAY_PRIVATE_KEY) {
     throw new Error('YouCanPay private key not configured')
@@ -92,7 +92,7 @@ export async function processPayment(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token_id: orderId || token,
+        token_id: orderId,
         amount,
         customer_email: customerEmail,
         pri_key: YOUCAN_PAY_PRIVATE_KEY,
