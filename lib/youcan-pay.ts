@@ -86,6 +86,14 @@ export async function processPayment(
     throw new Error('YouCanPay public key not configured')
   }
 
+  // Normalize expiry: accept MM/YY or MM/YYYY, always send MM/YY
+  const rawExpiry = cardDetails.expireDate.replace(/\s/g, '')
+  const expiryParts = rawExpiry.split('/')
+  const expiryMonth = expiryParts[0]?.padStart(2, '0') ?? ''
+  let expiryYear = expiryParts[1] ?? ''
+  if (expiryYear.length === 4) expiryYear = expiryYear.slice(2) // YYYY → YY
+  const normalizedExpiry = `${expiryMonth}/${expiryYear}`
+
   // Form-encoded body — /pay uses pub_key, not pri_key
   const body = new URLSearchParams({
     pub_key: YOUCAN_PAY_PUBLIC_KEY,
@@ -93,10 +101,11 @@ export async function processPayment(
     credit_card: cardDetails.cardNumber,
     card_holder_name: cardDetails.cardholderName,
     cvv: cardDetails.cvv,
-    expire_date: cardDetails.expireDate,
+    expire_date: normalizedExpiry,
     'payment_method[type]': 'credit_card',
   })
 
+  console.log('YouCanPay pay request body:', body.toString())
   try {
     const response = await fetch(`${API_BASE}/pay`, {
       method: 'POST',
