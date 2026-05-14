@@ -30,15 +30,28 @@ export default function SettingsPage() {
     if (newPlan === 'free') return
     setLoading(true)
     try {
-      const res = await fetch('/api/stripe/checkout', {
+      const res = await fetch('/api/youcan-pay/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: newPlan }),
       })
-      const { url } = await res.json()
-      if (url) window.location.href = url
+      const data = await res.json()
+      if (data.error) {
+        alert(`Error: ${data.error}`)
+        return
+      }
+
+      // Store payment details and redirect to payment page
+      sessionStorage.setItem('youcan_pay_token', JSON.stringify({
+        token: data.token,
+        amount: data.amount,
+        plan: data.plan,
+        plan_name: data.plan_name,
+      }))
+      window.location.href = '/payment'
     } catch (err) {
       console.error(err)
+      alert('Failed to initiate payment')
     } finally {
       setLoading(false)
     }

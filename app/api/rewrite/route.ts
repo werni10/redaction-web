@@ -18,18 +18,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'arabicText required' }, { status: 400 })
   }
 
-  // Check usage limits
+  // Check usage limits and subscription
   const wordCount = countWords(arabicText)
   const [usage, { data: profile }] = await Promise.all([
     getUsage(user.id),
     supabase
       .from('user_subscriptions')
-      .select('plan')
+      .select('plan, status, current_period_end')
       .eq('user_id', user.id)
       .single(),
   ])
 
   const plan = (profile?.plan || 'free') as 'free' | 'pro' | 'enterprise'
+
+  // Check if subscription expired
+  if (plan !== 'free' && profile?.status === 'active' && profile?.current_period_end) {
+    if (new Date(profile.current_period_end) < new Date()) {
+      return NextResponse.json(
+        { error: 'Subscription expired. Please renew to continue.' },
+        { status: 403 }
+      )
+    }
+  }
 
   if (usage.wordCount + wordCount > (plan === 'free' ? 5000 : plan === 'pro' ? 100000 : 1000000)) {
     return NextResponse.json(
