@@ -1,10 +1,9 @@
 'use client'
 
-export type Mode = 'general' | 'ocp' | 'arabic_rewrite'
+export type Mode = 'general' | 'arabic_rewrite'
 
 const modes: { value: Mode; label: string }[] = [
-  { value: 'general', label: 'General Redouane Style' },
-  { value: 'ocp', label: 'OCP Style' },
+  { value: 'general', label: 'Redouane Style' },
   { value: 'arabic_rewrite', label: 'Arabic Rewrite' },
 ]
 

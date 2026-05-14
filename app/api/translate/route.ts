@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { translateToArabic } from '@/lib/deepl'
 import { polishTranslation } from '@/lib/openai'
-import { countWords, incrementUsage, saveTranslation } from '@/lib/usage'
+import { countWords, incrementUsage, saveTranslation, getUsage } from '@/lib/usage'
+import { hasExceededLimit } from '@/lib/subscriptions'
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
@@ -13,24 +14,39 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const { frenchText, mode } = body as { frenchText: string; mode: 'general' | 'ocp' }
+  const { frenchText } = body as { frenchText: string }
 
   if (!frenchText?.trim()) {
     return NextResponse.json({ error: 'frenchText required' }, { status: 400 })
   }
 
-  if (!['general', 'ocp'].includes(mode)) {
-    return NextResponse.json({ error: 'Invalid mode' }, { status: 400 })
+  // Check usage limits
+  const [usage, { data: profile }] = await Promise.all([
+    getUsage(user.id),
+    supabase
+      .from('user_subscriptions')
+      .select('plan')
+      .eq('user_id', user.id)
+      .single(),
+  ])
+
+  const plan = (profile?.plan || 'free') as 'free' | 'pro' | 'enterprise'
+  const wordCount = countWords(frenchText)
+
+  if (usage.wordCount + wordCount > (plan === 'free' ? 5000 : plan === 'pro' ? 100000 : 1000000)) {
+    return NextResponse.json(
+      { error: `Monthly limit exceeded for ${plan} plan` },
+      { status: 429 }
+    )
   }
 
   try {
     const deeplDraft = await translateToArabic(frenchText)
-    const result = await polishTranslation(frenchText, deeplDraft, mode)
-    const wordCount = countWords(frenchText)
+    const result = await polishTranslation(frenchText, deeplDraft, 'general')
 
     await Promise.all([
       incrementUsage(user.id, wordCount),
-      saveTranslation(user.id, mode, frenchText, result, wordCount),
+      saveTranslation(user.id, 'general', frenchText, result, wordCount),
     ])
 
     return NextResponse.json({ result, wordCount })

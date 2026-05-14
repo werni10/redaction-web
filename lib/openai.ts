@@ -1,7 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
-import styleMemory from '@/data/style_memory.json'
 
-export type RedActionMode = 'general' | 'ocp' | 'arabic_rewrite'
+export type RedActionMode = 'general' | 'arabic_rewrite'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -71,60 +70,6 @@ Do not import OCP-specific terminology into unrelated texts.
 Output:
 Return only the final Arabic text.`
 
-function buildOcpPrompt(): string {
-  // Inject up to 6 domain-relevant examples from style_memory.json
-  const examples = (styleMemory.examples as Array<{
-    domain: string
-    fr: string
-    final: string
-    style_note: string
-    risk: string
-  }>)
-    .filter(e => e.risk !== 'branding_only')
-    .slice(0, 6)
-    .map(e => `FR: ${e.fr}\nAR: ${e.final}`)
-    .join('\n\n')
-
-  return `OCP Style Mode is active.
-
-Apply Redouane's general style, plus the OCP institutional style.
-
-Use OCP terminology only when relevant to the text.
-
-Preferred OCP terminology:
-- phosphate → الفوسفاط
-- phosphore → الفوسفور
-- agriculture → الفلاحة
-- agricultural → فلاحي
-- agriculteurs → الفلاحون
-- gestion → تدبير
-- transition énergétique → الانتقال الطاقي
-- développement durable → التنمية المستدامة
-- neutralité carbone → الحياد الكربوني
-- économie circulaire → الاقتصاد الدائري
-- efficacité énergétique → النجاعة الطاقية
-- eau non conventionnelle → المياه غير التقليدية
-- engrais customisés → أسمدة مشخصة
-- parties prenantes → الأطراف المعنية
-- sécurité alimentaire → الأمن الغذائي
-- empreinte environnementale → الأثر البيئي
-- chaîne de valeur → سلسلة القيمة
-- dépenses d'investissement / CAPEX → النفقات الرأسمالية
-
-OCP stylistic tendencies:
-- Prefer institutional clarity over literal translation.
-- Prefer concise and structured Arabic.
-- Use a confident but controlled tone.
-- Keep sustainability language precise, not decorative.
-- Preserve all figures, percentages, dates, and program names.
-- Avoid forcing metaphors unless the source text is clearly branding or vision-oriented.
-
-OCP examples:
-${examples}
-
-Do not apply OCP terminology if the input is clearly unrelated to OCP.`
-}
-
 const arabicRewritePrompt = `You are RedAction.
 
 You are an Arabic stylistic editor.
@@ -174,8 +119,6 @@ function buildSystemPrompt(mode: RedActionMode): string {
   switch (mode) {
     case 'general':
       return generalRedouanePrompt
-    case 'ocp':
-      return generalRedouanePrompt + '\n\n' + buildOcpPrompt()
     case 'arabic_rewrite':
       return arabicRewritePrompt
   }
@@ -184,7 +127,7 @@ function buildSystemPrompt(mode: RedActionMode): string {
 export async function polishTranslation(
   frenchText: string,
   deeplArabic: string,
-  mode: 'general' | 'ocp'
+  mode: 'general'
 ): Promise<string> {
   const systemPrompt = buildSystemPrompt(mode)
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { rewriteArabic } from '@/lib/openai'
-import { countWords, incrementUsage, saveTranslation } from '@/lib/usage'
+import { countWords, incrementUsage, saveTranslation, getUsage } from '@/lib/usage'
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
@@ -18,9 +18,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'arabicText required' }, { status: 400 })
   }
 
+  // Check usage limits
+  const wordCount = countWords(arabicText)
+  const [usage, { data: profile }] = await Promise.all([
+    getUsage(user.id),
+    supabase
+      .from('user_subscriptions')
+      .select('plan')
+      .eq('user_id', user.id)
+      .single(),
+  ])
+
+  const plan = (profile?.plan || 'free') as 'free' | 'pro' | 'enterprise'
+
+  if (usage.wordCount + wordCount > (plan === 'free' ? 5000 : plan === 'pro' ? 100000 : 1000000)) {
+    return NextResponse.json(
+      { error: `Monthly limit exceeded for ${plan} plan` },
+      { status: 429 }
+    )
+  }
+
   try {
     const result = await rewriteArabic(arabicText)
-    const wordCount = countWords(arabicText)
 
     await Promise.all([
       incrementUsage(user.id, wordCount),

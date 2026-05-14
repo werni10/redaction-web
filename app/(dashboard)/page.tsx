@@ -5,9 +5,11 @@ import ModePicker, { type Mode } from '@/components/editor/ModePicker'
 import EditorPanel from '@/components/editor/EditorPanel'
 import StatusBar from '@/components/editor/StatusBar'
 import { Sparkles, Trash2, Upload } from 'lucide-react'
+import { detectLanguage } from '@/lib/detectLanguage'
 
 export default function EditorPage() {
   const [mode, setMode] = useState<Mode>('general')
+  const [autoDetectEnabled, setAutoDetectEnabled] = useState(true)
   const [sourceText, setSourceText] = useState('')
   const [resultText, setResultText] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -27,6 +29,20 @@ export default function EditorPage() {
   }, [])
 
   useEffect(() => { fetchUsage() }, [fetchUsage])
+
+  function handleSourceTextChange(text: string) {
+    setSourceText(text)
+
+    // Auto-detect and switch mode if enabled
+    if (autoDetectEnabled && text.trim()) {
+      const detectedLang = detectLanguage(text)
+      if (detectedLang === 'ar') {
+        setMode('arabic_rewrite')
+      } else if (detectedLang === 'fr') {
+        setMode('general')
+      }
+    }
+  }
 
   async function handleRun() {
     if (!sourceText.trim() || isLoading) return
@@ -90,12 +106,11 @@ export default function EditorPage() {
   const buttonLabel = () => {
     if (isLoading) return 'Traitement...'
     if (mode === 'arabic_rewrite') return 'Réécrire avec RedAction'
-    if (mode === 'ocp') return 'Traduire avec RedAction OCP'
     return 'Traduire avec RedAction'
   }
 
-  const sourceTitle = mode === 'arabic_rewrite' ? 'Texte arabe' : 'Texte source (français)'
-  const resultTitle = mode === 'arabic_rewrite' ? 'Texte réécrit' : 'Texte arabe'
+  const sourceTitle = mode === 'arabic_rewrite' ? 'Texte arabe à réécrire' : 'Texte français'
+  const resultTitle = mode === 'arabic_rewrite' ? 'Texte arabe réécrit' : 'Texte arabe traduit'
 
   return (
     <div className="max-w-4xl mx-auto px-8 py-10 space-y-6">
@@ -109,7 +124,7 @@ export default function EditorPage() {
       <EditorPanel
         title={sourceTitle}
         value={sourceText}
-        onChange={setSourceText}
+        onChange={handleSourceTextChange}
         placeholder="Entrez votre texte ici..."
         variant="source"
         maxLength={5000}
