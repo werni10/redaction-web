@@ -105,8 +105,9 @@ export async function processPayment(
     })
 
     const data = await response.json()
+    console.log('YouCanPay pay response:', JSON.stringify(data))
 
-    if (data.success === false) {
+    if (!response.ok || data.success === false) {
       throw new Error(`YouCanPay payment failed: ${JSON.stringify(data)}`)
     }
 

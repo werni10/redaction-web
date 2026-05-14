@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { processPayment } from '@/lib/youcan-pay'
 
 export async function POST(req: NextRequest) {
@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
     const now = new Date()
     const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
 
-    const { error: upsertError } = await supabase
+    // Use service role to bypass RLS
+    const serviceSupabase = await createServiceClient()
+    const { error: upsertError } = await serviceSupabase
       .from('user_subscriptions')
       .upsert(
         {
