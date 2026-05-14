@@ -65,3 +65,10 @@ export function hasExceededLimit(plan: SubscriptionPlan, usage: {
   if (usage.requestCount >= limits.monthlyRequests) return { exceeded: true, type: 'requests' }
   return { exceeded: false }
 }
+
+// YouCanPay payment amounts (in cents)
+export const SUBSCRIPTION_AMOUNTS: Record<SubscriptionPlan, number> = {
+  free: 0,
+  pro: 9900, // $99.00
+  enterprise: 0, // custom billing
+}
