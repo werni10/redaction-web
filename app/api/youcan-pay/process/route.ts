@@ -53,8 +53,8 @@ export async function POST(req: NextRequest) {
       )
 
     if (upsertError) {
-      console.error('Subscription upsert error:', upsertError)
-      return NextResponse.json({ error: 'Failed to activate subscription' }, { status: 500 })
+      console.error('Subscription upsert error:', JSON.stringify(upsertError))
+      return NextResponse.json({ error: 'Failed to activate subscription', debug: upsertError.message }, { status: 500 })
     }
 
     return NextResponse.json({
