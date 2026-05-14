@@ -85,8 +85,8 @@ export default function PaymentPage() {
       setError('Card number invalid')
       return
     }
-    if (!cardDetails.expireDate || cardDetails.expireDate.length < 4) {
-      setError('Expiry date invalid (MM/YY)')
+    if (!cardDetails.expireDate) {
+      setError('Expiry date required')
       return
     }
     if (!cardDetails.cvv || cardDetails.cvv.length < 3) {
