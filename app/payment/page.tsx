@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 interface PaymentData {
-  token: string
+  transactionId: string
   amount: number
-  orderId: string
   plan: string
   plan_name: string
 }
@@ -107,10 +106,9 @@ export default function PaymentPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token: paymentData.token,
+          transactionId: paymentData.transactionId,
           amount: paymentData.amount,
           plan: paymentData.plan,
-          orderId: paymentData.orderId,
           cardNumber: cardDetails.cardNumber.replace(/\s/g, ''),
           expireDate: cardDetails.expireDate,
           cvv: cardDetails.cvv,

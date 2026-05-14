@@ -43,9 +43,8 @@ export default function SettingsPage() {
 
       // Store payment details and redirect to payment page
       sessionStorage.setItem('youcan_pay_token', JSON.stringify({
-        token: data.token,
+        transactionId: data.transactionId,
         amount: data.amount,
-        orderId: data.orderId,
         plan: data.plan,
         plan_name: data.plan_name,
       }))

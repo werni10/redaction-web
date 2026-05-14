@@ -11,9 +11,9 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { token, amount, plan, cardNumber, expireDate, cvv, cardholderName, orderId } = await req.json()
+    const { transactionId, amount, plan, cardNumber, expireDate, cvv, cardholderName } = await req.json()
 
-    if (!amount || !plan || !orderId) {
+    if (!transactionId || !amount || !plan) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
@@ -21,23 +21,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing card details' }, { status: 400 })
     }
 
-    // Process payment with YouCanPay
-    const paymentResult = await processPayment(token || '', amount, user.email || '', {
+    const paymentResult = await processPayment(transactionId, {
       cardNumber,
       expireDate,
       cvv,
       cardholderName,
-    }, orderId)
+    })
 
-    if (paymentResult.status !== 'success') {
-      return NextResponse.json({ error: 'Payment processing failed' }, { status: 400 })
-    }
-
-    // Calculate subscription period (30 days from now)
+    // Calculate subscription period (30 days)
     const now = new Date()
     const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
 
-    // Create or update subscription
     const { error: upsertError } = await supabase
       .from('user_subscriptions')
       .upsert(

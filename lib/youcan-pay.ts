@@ -4,62 +4,59 @@ const YOUCAN_PAY_PUBLIC_KEY = process.env.NEXT_PUBLIC_YOUCAN_PAY_PUBLIC_KEY
 const YOUCAN_PAY_PRIVATE_KEY = process.env.YOUCAN_PAY_PRIVATE_KEY
 const YOUCAN_PAY_SANDBOX_MODE = process.env.YOUCAN_PAY_SANDBOX_MODE === 'true'
 
+// Both sandbox and live use same base — sandbox uses sandbox keys
 const API_BASE = YOUCAN_PAY_SANDBOX_MODE
   ? 'https://youcanpay.com/sandbox/api'
-  : 'https://api.youcanpay.com/v1'
-
-function generateUUID(): string {
-  return crypto.randomUUID()
-}
+  : 'https://youcanpay.com/api'
 
 export interface YouCanPayCheckoutSession {
   amount: number
   currency: string
   customerEmail: string
-  customerId: string
   description: string
   successUrl: string
   failureUrl: string
-  webhookUrl: string
 }
 
+// Step 1: Tokenize — create payment session, returns transaction_id (UUID)
 export async function createCheckoutToken(
   session: YouCanPayCheckoutSession
-): Promise<{ token: string; amount: number; orderId: string }> {
+): Promise<{ transactionId: string; amount: number }> {
   if (!YOUCAN_PAY_PRIVATE_KEY) {
     throw new Error('YouCanPay private key not configured')
   }
 
-  const { amount, currency, customerEmail, description } = session
-  const orderId = generateUUID()
+  const { amount, currency, successUrl, failureUrl } = session
+  const orderId = crypto.randomUUID()
+
+  // Form-encoded body
+  const body = new URLSearchParams({
+    amount: String(amount),
+    currency: currency || 'MAD',
+    pri_key: YOUCAN_PAY_PRIVATE_KEY,
+    order_id: orderId,
+    success_url: successUrl,
+    error_url: failureUrl,
+  })
 
   try {
     const response = await fetch(`${API_BASE}/tokenize`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        amount,
-        currency: currency || 'USD',
-        customer_email: customerEmail,
-        description,
-        order_id: orderId,
-        pri_key: YOUCAN_PAY_PRIVATE_KEY,
-      }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
     })
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(`YouCanPay tokenize failed: ${JSON.stringify(error)}`)
+    const data = await response.json()
+
+    if (!response.ok || data.success === false) {
+      throw new Error(`YouCanPay tokenize failed: ${JSON.stringify(data)}`)
     }
 
-    const data = await response.json()
-    console.log('YouCanPay tokenize response:', JSON.stringify(data, null, 2))
+    // tokenize returns { transaction_id: "uuid", token: "cp..." }
+    // token_id for /pay must be transaction_id (UUID)
     return {
-      token: data.token || data.id || data.token_id || orderId,
+      transactionId: data.transaction_id,
       amount,
-      orderId,
     }
   } catch (err) {
     console.error('YouCanPay tokenize error:', err)
@@ -74,44 +71,42 @@ export interface CardDetails {
   cardholderName: string
 }
 
+// Step 2: Pay — charge card using token from tokenize
 export async function processPayment(
-  _token: string,
-  amount: number,
-  customerEmail: string,
-  cardDetails: CardDetails,
-  orderId: string
+  transactionId: string,
+  cardDetails: CardDetails
 ): Promise<{ transactionId: string; status: string }> {
-  if (!YOUCAN_PAY_PRIVATE_KEY) {
-    throw new Error('YouCanPay private key not configured')
+  if (!YOUCAN_PAY_PUBLIC_KEY) {
+    throw new Error('YouCanPay public key not configured')
   }
+
+  // Form-encoded body — /pay uses pub_key, not pri_key
+  const body = new URLSearchParams({
+    pub_key: YOUCAN_PAY_PUBLIC_KEY,
+    token_id: transactionId,
+    credit_card: cardDetails.cardNumber,
+    card_holder_name: cardDetails.cardholderName,
+    cvv: cardDetails.cvv,
+    expire_date: cardDetails.expireDate,
+    'payment_method[type]': 'credit_card',
+  })
 
   try {
     const response = await fetch(`${API_BASE}/pay`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token_id: orderId,
-        amount,
-        customer_email: customerEmail,
-        pri_key: YOUCAN_PAY_PRIVATE_KEY,
-        expire_date: cardDetails.expireDate,
-        credit_card: cardDetails.cardNumber,
-        cvv: cardDetails.cvv,
-        card_holder_name: cardDetails.cardholderName,
-      }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
     })
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(`YouCanPay payment failed: ${JSON.stringify(error)}`)
+    const data = await response.json()
+
+    if (data.success === false) {
+      throw new Error(`YouCanPay payment failed: ${JSON.stringify(data)}`)
     }
 
-    const data = await response.json()
     return {
-      transactionId: data.id || data.transaction_id,
-      status: data.status || 'success',
+      transactionId: data.transaction_id || transactionId,
+      status: data.success ? 'success' : 'failed',
     }
   } catch (err) {
     console.error('YouCanPay payment error:', err)
@@ -131,9 +126,4 @@ export function verifyWebhookSignature(
     .digest('hex')
 
   return hash === signature
-}
-
-export const YOUCAN_PAY_PRODUCTS = {
-  pro_monthly: 'pro_monthly',
-  enterprise_annual: 'enterprise_annual',
 }
