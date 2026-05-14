@@ -3,14 +3,16 @@ export async function translateToArabic(text: string): Promise<string> {
   if (!apiKey) throw new Error('DEEPL_API_KEY not set')
 
   const body = new URLSearchParams({
-    auth_key: apiKey,
     text,
     target_lang: 'AR',
   })
 
   const res = await fetch('https://api-free.deepl.com/v2/translate', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': `DeepL-Auth-Key ${apiKey}`,
+    },
     body: body.toString(),
   })
 
