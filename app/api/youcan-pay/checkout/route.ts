@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       token: token.token,
       amount: token.amount,
+      orderId: token.orderId,
       plan,
       plan_name: plan === 'pro' ? 'Pro' : 'Enterprise',
     })

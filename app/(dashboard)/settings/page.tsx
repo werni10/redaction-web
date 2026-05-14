@@ -45,6 +45,7 @@ export default function SettingsPage() {
       sessionStorage.setItem('youcan_pay_token', JSON.stringify({
         token: data.token,
         amount: data.amount,
+        orderId: data.orderId,
         plan: data.plan,
         plan_name: data.plan_name,
       }))

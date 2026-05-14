@@ -21,12 +21,13 @@ export interface YouCanPayCheckoutSession {
 
 export async function createCheckoutToken(
   session: YouCanPayCheckoutSession
-): Promise<{ token: string; amount: number }> {
+): Promise<{ token: string; amount: number; orderId: string }> {
   if (!YOUCAN_PAY_PRIVATE_KEY) {
     throw new Error('YouCanPay private key not configured')
   }
 
-  const { amount, currency, customerEmail, description } = session
+  const { amount, currency, customerEmail, description, customerId } = session
+  const orderId = `order_${customerId}_${Date.now()}`
 
   try {
     const response = await fetch(`${API_BASE}/tokenize`, {
@@ -40,6 +41,7 @@ export async function createCheckoutToken(
         currency: currency || 'USD',
         customerEmail,
         description,
+        order_id: orderId,
       }),
     })
 
@@ -52,6 +54,7 @@ export async function createCheckoutToken(
     return {
       token: data.token || data.id,
       amount,
+      orderId,
     }
   } catch (err) {
     console.error('YouCanPay tokenize error:', err)

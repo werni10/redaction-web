@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 interface PaymentData {
   token: string
   amount: number
+  orderId: string
   plan: string
   plan_name: string
 }
