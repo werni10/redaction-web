@@ -11,14 +11,23 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { token, amount, plan } = await req.json()
+    const { token, amount, plan, cardNumber, expireDate, cvv, cardholderName } = await req.json()
 
     if (!token || !amount || !plan) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
+    if (!cardNumber || !expireDate || !cvv || !cardholderName) {
+      return NextResponse.json({ error: 'Missing card details' }, { status: 400 })
+    }
+
     // Process payment with YouCanPay
-    const paymentResult = await processPayment(token, amount, user.email || '')
+    const paymentResult = await processPayment(token, amount, user.email || '', {
+      cardNumber,
+      expireDate,
+      cvv,
+      cardholderName,
+    })
 
     if (paymentResult.status !== 'success') {
       return NextResponse.json({ error: 'Payment processing failed' }, { status: 400 })

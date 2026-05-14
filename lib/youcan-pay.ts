@@ -62,10 +62,18 @@ export async function createCheckoutToken(
   }
 }
 
+export interface CardDetails {
+  cardNumber: string
+  expireDate: string
+  cvv: string
+  cardholderName: string
+}
+
 export async function processPayment(
   token: string,
   amount: number,
-  customerEmail: string
+  customerEmail: string,
+  cardDetails: CardDetails
 ): Promise<{ transactionId: string; status: string }> {
   if (!YOUCAN_PAY_PRIVATE_KEY) {
     throw new Error('YouCanPay private key not configured')
@@ -78,10 +86,14 @@ export async function processPayment(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token,
+        token_id: token,
         amount,
         customer_email: customerEmail,
         pri_key: YOUCAN_PAY_PRIVATE_KEY,
+        expire_date: cardDetails.expireDate,
+        credit_card: cardDetails.cardNumber,
+        cvv: cardDetails.cvv,
+        card_holder_name: cardDetails.cardholderName,
       }),
     })
 
