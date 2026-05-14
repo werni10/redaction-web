@@ -56,6 +56,9 @@ export async function createCheckoutToken(
     // tokenize returns { transaction_id: "uuid", token: "cp..." }
     // token_id for /pay must be transaction_id (UUID)
     const transactionId = data.transaction_id || data.token_id || data.id
+    if (!transactionId) {
+      throw new Error(`YouCanPay tokenize: no transaction_id in response. Keys: ${Object.keys(data).join(', ')}. Full: ${JSON.stringify(data)}`)
+    }
     return {
       transactionId,
       amount,

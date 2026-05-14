@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     console.log('YouCanPay checkout token:', token)
     if (!token.transactionId) {
-      return NextResponse.json({ error: 'YouCanPay did not return a transaction_id' }, { status: 500 })
+      return NextResponse.json({ error: 'YouCanPay did not return a transaction_id', raw: token }, { status: 500 })
     }
 
     return NextResponse.json({
