@@ -149,7 +149,7 @@ Required output:
 Return only the final polished Arabic text.`
 
   const response = await client.messages.create({
-    model: 'claude-3-5-haiku-20241022',
+    model: 'claude-haiku-4-5',
     max_tokens: 8000,
     system: systemPrompt,
     messages: [
@@ -173,7 +173,7 @@ Required output:
 Return only the rewritten Arabic text.`
 
   const response = await client.messages.create({
-    model: 'claude-3-5-haiku-20241022',
+    model: 'claude-haiku-4-5',
     max_tokens: 8000,
     system: systemPrompt,
     messages: [
