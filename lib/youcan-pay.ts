@@ -34,14 +34,14 @@ export async function createCheckoutToken(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${YOUCAN_PAY_PRIVATE_KEY}`,
       },
       body: JSON.stringify({
         amount,
         currency: currency || 'USD',
-        customerEmail,
+        customer_email: customerEmail,
         description,
         order_id: orderId,
+        pri_key: YOUCAN_PAY_PRIVATE_KEY,
       }),
     })
 
@@ -76,12 +76,12 @@ export async function processPayment(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${YOUCAN_PAY_PRIVATE_KEY}`,
       },
       body: JSON.stringify({
         token,
         amount,
-        customerEmail,
+        customer_email: customerEmail,
+        pri_key: YOUCAN_PAY_PRIVATE_KEY,
       }),
     })
 
