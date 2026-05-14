@@ -8,6 +8,10 @@ const API_BASE = YOUCAN_PAY_SANDBOX_MODE
   ? 'https://youcanpay.com/sandbox/api'
   : 'https://api.youcanpay.com/v1'
 
+function generateUUID(): string {
+  return crypto.randomUUID()
+}
+
 export interface YouCanPayCheckoutSession {
   amount: number
   currency: string
@@ -26,8 +30,8 @@ export async function createCheckoutToken(
     throw new Error('YouCanPay private key not configured')
   }
 
-  const { amount, currency, customerEmail, description, customerId } = session
-  const orderId = `order_${customerId}_${Date.now()}`
+  const { amount, currency, customerEmail, description } = session
+  const orderId = generateUUID()
 
   try {
     const response = await fetch(`${API_BASE}/tokenize`, {
