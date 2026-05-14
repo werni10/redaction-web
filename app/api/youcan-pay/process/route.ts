@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { token, amount, plan, cardNumber, expireDate, cvv, cardholderName } = await req.json()
+    const { token, amount, plan, cardNumber, expireDate, cvv, cardholderName, orderId } = await req.json()
 
     if (!token || !amount || !plan) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       expireDate,
       cvv,
       cardholderName,
-    })
+    }, orderId)
 
     if (paymentResult.status !== 'success') {
       return NextResponse.json({ error: 'Payment processing failed' }, { status: 400 })

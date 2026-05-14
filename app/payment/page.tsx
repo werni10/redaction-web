@@ -110,6 +110,7 @@ export default function PaymentPage() {
           token: paymentData.token,
           amount: paymentData.amount,
           plan: paymentData.plan,
+          orderId: paymentData.orderId,
           cardNumber: cardDetails.cardNumber.replace(/\s/g, ''),
           expireDate: cardDetails.expireDate,
           cvv: cardDetails.cvv,

@@ -51,8 +51,9 @@ export async function createCheckoutToken(
     }
 
     const data = await response.json()
+    console.log('YouCanPay tokenize response:', JSON.stringify(data, null, 2))
     return {
-      token: data.token || data.id,
+      token: data.token || data.id || data.token_id || orderId,
       amount,
       orderId,
     }
@@ -73,7 +74,8 @@ export async function processPayment(
   token: string,
   amount: number,
   customerEmail: string,
-  cardDetails: CardDetails
+  cardDetails: CardDetails,
+  orderId?: string
 ): Promise<{ transactionId: string; status: string }> {
   if (!YOUCAN_PAY_PRIVATE_KEY) {
     throw new Error('YouCanPay private key not configured')
@@ -86,7 +88,7 @@ export async function processPayment(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token_id: token,
+        token_id: orderId || token,
         amount,
         customer_email: customerEmail,
         pri_key: YOUCAN_PAY_PRIVATE_KEY,
