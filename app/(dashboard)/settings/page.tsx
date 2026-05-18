@@ -156,8 +156,8 @@ export default function SettingsPage() {
                 <div className="mt-4 mb-8">
                   {planData.price > 0 ? (
                     <>
-                      <span className="text-4xl font-bold">${planData.price}</span>
-                      <span className="text-gray-500">/mois</span>
+                      <span className="text-4xl font-bold">{planData.price}</span>
+                      <span className="text-gray-500 ml-1">MAD/mois</span>
                     </>
                   ) : (
                     <span className="text-4xl font-bold">Gratuit</span>

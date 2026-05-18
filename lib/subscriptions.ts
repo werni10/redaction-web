@@ -25,7 +25,7 @@ export const PLANS: Record<SubscriptionPlan, PlanLimits> = {
     monthlyWords: 20000,
     monthlyRequests: 400,
     name: 'Starter',
-    price: 19,
+    price: 99,
     features: [
       '20 000 mots/mois',
       'Traduction FR → AR',
@@ -38,7 +38,7 @@ export const PLANS: Record<SubscriptionPlan, PlanLimits> = {
     monthlyWords: 100000,
     monthlyRequests: 2000,
     name: 'Pro',
-    price: 79,
+    price: 249,
     features: [
       '100 000 mots/mois',
       'Traduction FR → AR',
@@ -52,7 +52,7 @@ export const PLANS: Record<SubscriptionPlan, PlanLimits> = {
     monthlyWords: 1000000,
     monthlyRequests: 20000,
     name: 'Enterprise',
-    price: 0,
+    price: 999,
     features: [
       '1 000 000 mots/mois',
       'Accès API',
@@ -73,10 +73,10 @@ export function hasExceededLimit(
   return { exceeded: false }
 }
 
-// YouCanPay payment amounts (in MAD cents)
+// YouCanPay payment amounts (in MAD — YouCanPay uses whole units for MAD)
 export const SUBSCRIPTION_AMOUNTS: Record<SubscriptionPlan, number> = {
   free: 0,
-  starter: 1900,  // 19 MAD
-  pro: 7900,      // 79 MAD
-  enterprise: 0,  // custom
+  starter: 99,   // 99 MAD
+  pro: 249,      // 249 MAD
+  enterprise: 0, // custom/contact
 }

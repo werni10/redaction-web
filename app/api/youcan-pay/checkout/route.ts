@@ -18,11 +18,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
     }
 
-    const amount = SUBSCRIPTION_AMOUNTS[plan as keyof typeof SUBSCRIPTION_AMOUNTS]
+    const amountMAD = SUBSCRIPTION_AMOUNTS[plan as keyof typeof SUBSCRIPTION_AMOUNTS]
+    // YouCanPay expects amount in centimes (1 MAD = 100 centimes)
+    const amount = (amountMAD || 0) * 100
     const returnUrl = req.headers.get('origin') || 'https://redaction.ai'
 
     const token = await createCheckoutToken({
-      amount: amount || 0,
+      amount,
       currency: 'MAD',
       customerEmail: user.email || '',
       description: `RedAction ${plan} subscription`,
