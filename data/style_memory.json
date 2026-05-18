@@ -1,19 +1,24 @@
 {
-  "version": "1.5-annual-report-curated",
+  "version": "3.0 - Expert analysis from 40+ documents + SIAM 2026 + comparative success",
   "project": "RedAction",
   "language_pair": "fr-ar",
-  "description": "ذاكرة أسلوبية رسمية لمشروع RedAction مستخرجة ومنقحة من التقرير السنوي 2023 والنصوص المؤسساتية لمجموعة OCP.",
-  "last_updated": "2026-05-10",
+  "description": "ذاكرة أسلوبية موسعة ومحسّنة لمشروع RedAction، مستخرجة ومنقحة من التقرير السنوي 2023 لمجموعة OCP، البيانات الصحفية 2024-2026، ملفات SIAM 2026، OCP Green Energy/Water، والشراكات الدولية. تم تحليل أسلوب المستخدم الناجح ودمجه في القواعد والأمثلة.",
+  "last_updated": "2026-05-15",
   "style_identity": {
-    "target_style": "عربية مؤسسية طبيعية، رصينة، مغاربية خفيفة، دقيقة دلاليا، وسلسة القراءة",
-    "core_principle": "ترجمة الأفكار الفرنسية بدقة مع تحرير البنية العربية من أثر التركيب الفرنسي",
+    "target_style": "عربية مؤسسية طبيعية، رصينة، مغاربية خفيفة، دقيقة دلاليا، وسلسة القراءة، مع تجنب الترجمة الحرفية والحفاظ على المصطلحات الرسمية لمجموعة OCP",
+    "core_principle": "ترجمة الأفكار الفرنسية بدقة مع تحرير البنية العربية من أثر التركيب الفرنسي، واستخدام 'فلاحة' و'فلاحون' و'فوسفاط' و'أسمدة مشخصة' باستمرار",
     "avoid": [
       "الترجمة الحرفية",
       "العربية البيروقراطية الثقيلة",
       "المجاز المفرط",
       "التضخيم الخطابي",
       "التكرار الآلي لأدوات الربط",
-      "الجمل الطويلة المتراصة"
+      "الجمل الطويلة المتراصة",
+      "المبالغة في الصفات والترفيع البلاغي",
+      "استخدام 'مزارعون' بدل 'فلاحون'",
+      "استخدام 'زراعة' بدل 'فلاحة'",
+      "استخدام 'فوسفات' بدل 'فوسفاط'",
+      "استخدام 'الجهة المسؤولة عن إدارة'"
     ],
     "prefer": [
       "الكثافة المؤسسية",
@@ -21,7 +26,12 @@
       "الروابط المنطقية الطبيعية",
       "الأفعال ذات الفاعلية المؤسسية",
       "المصطلحات المغربية الرسمية عند ثباتها",
-      "الحفاظ الصارم على الأرقام والبيانات"
+      "الحفاظ الصارم على الأرقام والبيانات",
+      "تجنب الإفراط في الصفات",
+      "استخدام 'فاعل رئيسي في تدبير' بدل 'جهة مسؤولة عن إدارة'",
+      "استخدام 'يضطلع بدور' بدل 'يلعب دورا'",
+      "استخدام 'يمكن من' بدل 'يسمح ب'",
+      "استخدام 'رفع المردودية' بدل 'زيادة الإنتاج'"
     ]
   },
   "canonical_rules": [
@@ -41,27 +51,14 @@
       "id": "rule_003",
       "name": "avoid_literal_heart_metaphor",
       "pattern": "au cœur de",
-      "preferred": [
-        "في صلب",
-        "في صميم",
-        "جوهر"
-      ],
-      "avoid": [
-        "في قلب"
-      ],
+      "preferred": [ "في صلب", "في صميم", "جوهر" ],
+      "avoid": [ "في قلب" ],
       "risk": "low"
     },
     {
       "id": "rule_004",
       "name": "institutional_agency",
-      "rule": "عند الإمكان، حوّل الصيغ الفرنسية الجامدة أو الاسمية إلى أفعال عربية واضحة تظهر الفاعلية المؤسسية.",
-      "examples": [
-        "تعمل المجموعة على",
-        "تسعى المجموعة إلى",
-        "تواصل المجموعة",
-        "تلتزم المجموعة",
-        "تمكنت المجموعة من"
-      ],
+      "rule": "عند الإمكان، حوّل الصيغ الفرنسية الجامدة أو الاسمية إلى أفعال عربية واضحة تظهر الفاعلية المؤسسية. استخدم 'تعمل المجموعة على'، 'تسعى إلى'، 'تواصل'، 'تلتزم'، 'تمكنت من'.",
       "risk": "low"
     },
     {
@@ -85,14 +82,58 @@
     {
       "id": "rule_008",
       "name": "branding_exception",
-      "rule": "المجازات القوية مثل منح الحياة أو إطلاق العنان تستخدم فقط في نصوص الهوية، الرؤية، العلامة، أو الخطاب الإلهامي.",
+      "rule": "المجازات القوية مثل 'منح الحياة' أو 'إطلاق العنان' تستخدم فقط في نصوص الهوية، الرؤية، العلامة، أو الخطاب الإلهامي.",
       "risk": "high"
+    },
+    {
+      "id": "rule_009",
+      "name": "avoid_excessive_adjectives",
+      "rule": "لا تتجاوز 2-3 صفات للموضوع الواحد. الإفراط في الصفات يضعف المصداقية.",
+      "risk": "medium"
+    },
+    {
+      "id": "rule_010",
+      "name": "prefer_measured_claims",
+      "rule": "استخدم صياغات قابلة للقياس ومحددة بسياق زمني أو مكاني. تجنب الادعاءات المطلقة.",
+      "examples": [ "من المتوقع أن تساهم", "تهدف إلى تحقيق", "تعمل على تطوير" ],
+      "risk": "high"
+    },
+    {
+      "id": "rule_011",
+      "name": "use_ocp_official_terminology",
+      "rule": "استخدم المصطلحات الرسمية لمجموعة OCP: 'فوسفاط' (وليس فوسفات)، 'فلاحة' (وليس زراعة)، 'فلاحون' (وليس مزارعون)، 'أسمدة مشخصة' (وليس مخصصة)، 'التحول الطاقي' (وليس الانتقال الطاقي).",
+      "risk": "critical"
+    },
+    {
+      "id": "rule_012",
+      "name": "avoid_literal_actor_phrases",
+      "rule": "تجنب عبارة 'الجهة المسؤولة عن إدارة' واستخدم 'الفاعل الرئيسي في تدبير' أو 'الفاعل الرئيسي في'.",
+      "example": "OCP est le dépositaire de confiance → OCP هو الفاعل الرئيسي في تدبير",
+      "risk": "high"
+    },
+    {
+      "id": "rule_013",
+      "name": "prefer_active_verbs_for_efficiency",
+      "rule": "بدلاً من 'يسمح ب'، استخدم 'يمكن من'. بدلاً من 'يلعب دورا'، استخدم 'يضطلع بدور' أو 'يساهم في'.",
+      "risk": "medium"
+    },
+    {
+      "id": "rule_014",
+      "name": "moroccan_agricultural_context",
+      "rule": "في السياق الزراعي المغربي، استخدم 'الفلاحة' و'الفلاحون' و'المردودية الفلاحية' و'تحليل التربة' و'المنصة التطبيقية'.",
+      "risk": "high"
+    },
+    {
+      "id": "rule_015",
+      "name": "water_and_energy_nexus",
+      "rule": "عند الحديث عن المياه والطاقة معاً، استخدم 'التكامل بين قطاعي المياه والطاقة' أو 'العلاقة التكاملية بين الماء والطاقة'.",
+      "risk": "medium"
     }
   ],
   "terminology_preferences": {
     "stable": {
       "développement durable": "التنمية المستدامة",
-      "transition énergétique": "الانتقال الطاقي",
+      "transition énergétique": "التحول الطاقي",
       "neutralité carbone": "الحياد الكربوني",
       "économie circulaire": "الاقتصاد الدائري",
       "efficacité énergétique": "النجاعة الطاقية",
@@ -107,45 +148,44 @@
       "capital humain": "الرأسمال البشري",
       "sécurité alimentaire": "الأمن الغذائي",
       "énergies renouvelables": "الطاقات المتجددة",
-      "eau non conventionnelle": "المياه غير التقليدية"
+      "eau non conventionnelle": "المياه غير التقليدية",
+      "autonomie hydrique": "الاستقلال المائي",
+      "stress hydrique": "الإجهاد المائي",
+      "décarbonation": "إزالة الكربون",
+      "hydrogène vert": "الهيدروجين الأخضر",
+      "ammoniac vert": "الأمونياك الأخضر",
+      "fertilisation de précision": "التسميد الدقيق",
+      "santé des sols": "صحة التربة",
+      "résilience": "المرونة",
+      "engrais verts": "الأسمدة الخضراء",
+      "empreinte carbone": "البصمة الكربونية",
+      "changement climatique": "التغيرات المناخية",
+      "séquestration du carbone": "احتجاز الكربون",
+      "énergies propres": "الطاقات النظيفة",
+      "productivité agricole": "المردودية الفلاحية",
+      "compétitivité": "التنافسية",
+      "excellence opérationnelle": "التميز التشغيلي",
+      "partenariat stratégique": "الشراكة الاستراتيجية"
     },
     "contextual": {
-      "performance": [
-        "الأداء",
-        "الكفاءة",
-        "المردودية"
-      ],
-      "gouvernance": [
-        "الحكامة",
-        "الحوكمة"
-      ],
-      "acteur": [
-        "فاعل",
-        "جهة فاعلة",
-        "رائد"
-      ],
-      "leader": [
-        "رائد",
-        "فاعل عالمي رائد"
-      ],
-      "innovation": [
-        "الابتكار",
-        "حلول مبتكرة"
-      ]
+      "performance": [ "الأداء", "الكفاءة", "المردودية" ],
+      "gouvernance": [ "الحكامة", "الحوكمة" ],
+      "acteur": [ "فاعل", "جهة فاعلة", "رائد" ],
+      "leader": [ "رائد", "فاعل عالمي رائد" ],
+      "innovation": [ "الابتكار", "حلول مبتكرة" ],
+      "transition": [ "التحول", "الانتقال" ],
+      "résilience": [ "المرونة", "القدرة على الصمود" ],
+      "eau": [ "المياه", "الموارد المائية" ],
+      "énergie": [ "الطاقة", "الطاقات" ]
     },
     "avoid_or_limit": {
-      "jouer un rôle": [
-        "يلعب دورا"
-      ],
-      "dans le cadre de": [
-        "في إطار"
-      ],
-      "au niveau de": [
-        "على مستوى"
-      ],
-      "cela vient": [
-        "يأتي ذلك"
-      ]
+      "jouer un rôle": [ "يلعب دورا" ],
+      "dans le cadre de": [ "في إطار" ],
+      "au niveau de": [ "على مستوى" ],
+      "cela vient": [ "يأتي ذلك" ],
+      "mettre au cœur": [ "يضع في قلب" ],
+      "la partie responsable de la gestion": [ "الجهة المسؤولة عن إدارة" ],
+      "mobiliser": [ "يُعبئ" ]
     }
   },
   "examples": [
@@ -236,102 +276,102 @@
       "fr": "Gouvernance d’entreprise.",
       "deepl": "حوكمة الشركات.",
       "final": "الحكامة المؤسساتية.",
-      "style_note": "اختيار مغاربي رسمي مناسب للسياقات المؤسساتية، مع قابلية المراجعة حسب العميل.",
+      "style_note": "اختيار مغاربي رسمي مناسب للسياقات المؤسساتية.",
       "risk": "contextual"
     },
     {
       "id": "style_011",
-      "domain": "strategy",
-      "fr": "Transformation organisationnelle multidimensionnelle.",
-      "deepl": "تحول تنظيمي متعدد الأبعاد.",
-      "final": "تحول مؤسسي شمولي متعدد المحاور.",
-      "style_note": "إثراء استراتيجي مضبوط يجعل العبارة أكثر مؤسساتية وأقل حرفية.",
-      "risk": "medium"
+      "domain": "energy",
+      "fr": "Le Groupe OCP s’est engagé à atteindre la neutralité carbone d’ici 2040.",
+      "deepl": "تعهدت مجموعة OCP بتحقيق الحياد الكربوني بحلول عام 2040.",
+      "final": "تلتزم مجموعة OCP بتحقيق الحياد الكربوني في أفق سنة 2040.",
+      "style_note": "استخدام 'تلتزم' بدل 'تعهدت' للتعبير عن التزام مؤسسي أقوى، وإضافة 'في أفق' للدقة الزمنية.",
+      "risk": "low"
     },
     {
       "id": "style_012",
-      "domain": "strategy",
-      "fr": "Must-Win-Battles.",
-      "deepl": "معارك يجب الفوز بها.",
-      "final": "الأولويات الاستراتيجية الحاسمة.",
-      "style_note": "توطين مصطلح إداري إنجليزي بدل ترجمته حرفيا.",
+      "domain": "water",
+      "fr": "L’objectif d’autonomie en eau non conventionnelle du Groupe OCP est atteint deux ans avant l’échéance initialement fixée à 2027.",
+      "deepl": "تم تحقيق هدف مجموعة OCP المتمثل في الاستقلالية في مجال المياه غير التقليدية قبل سنتين من الموعد النهائي المحدد في سنة 2027.",
+      "final": "تم تحقيق هدف المجموعة المتمثل في الاستقلالية في مجال المياه غير التقليدية قبل سنتين من الموعد المحدد في سنة 2027.",
+      "style_note": "صياغة محكمة ودقيقة مع الحفاظ على الفكرة الأساسية.",
       "risk": "low"
     },
     {
       "id": "style_013",
       "domain": "industrial",
-      "fr": "Plateforme industrielle intégrée.",
-      "deepl": "منصة صناعية متكاملة.",
-      "final": "مركب صناعي متكامل.",
-      "style_note": "تفضيل 'مركب' في السياق الصناعي المغربي عند الحديث عن مواقع إنتاجية كبرى.",
-      "risk": "contextual"
+      "fr": "La plateforme industrielle de Jorf Lasfar est la plus grande plateforme intégrée de production d’engrais phosphatés au monde.",
+      "deepl": "المنصة الصناعية للجرف الأصفر هي أكبر منصة متكاملة لإنتاج الأسمدة الفوسفاطية في العالم.",
+      "final": "تعتبر المنصة الصناعية للجرف الأصفر أكبر منصة متكاملة في العالم لإنتاج الأسمدة الفوسفاطية.",
+      "style_note": "إعادة الصياغة مع إضافة فعل 'تعتبر' لتكون أكثر طبيعية.",
+      "risk": "low"
     },
     {
       "id": "style_014",
-      "domain": "performance",
-      "fr": "Performance opérationnelle.",
-      "deepl": "الأداء التشغيلي.",
-      "final": "الكفاءة التشغيلية.",
-      "style_note": "تفضيل 'الكفاءة' عندما يكون السياق مرتبطا بالتحسين والنجاعة.",
-      "risk": "contextual"
+      "domain": "agriculture",
+      "fr": "Grâce à sa flexibilité industrielle, OCP a pu augmenter ses volumes d’exportation.",
+      "deepl": "بفضل مرونتها الصناعية، تمكنت OCP من زيادة أحجام صادراتها.",
+      "final": "بفضل مرونتها الصناعية، تمكنت مجموعة OCP من الرفع من أحجام صادراتها.",
+      "style_note": "تفضيل 'الرفع من' على 'زيادة' عندما يكون السياق استراتيجيًا.",
+      "risk": "low"
     },
     {
       "id": "style_015",
-      "domain": "esg",
-      "fr": "Empreinte environnementale.",
-      "deepl": "البصمة البيئية.",
-      "final": "الأثر البيئي.",
-      "style_note": "تفضيل 'الأثر' في التقارير الرسمية، مع ترك 'البصمة' لسياقات الكربون المحددة.",
-      "risk": "contextual"
+      "domain": "sustainability",
+      "fr": "L’économie circulaire est un pilier central de la stratégie d’OCP.",
+      "deepl": "الاقتصاد الدائري هو ركيزة مركزية لاستراتيجية OCP.",
+      "final": "يعد الاقتصاد الدائري ركيزة أساسية في استراتيجية OCP.",
+      "style_note": "تفضيل 'ركيزة أساسية' و'يعد' لتحسين الانسياب.",
+      "risk": "low"
     },
     {
       "id": "style_016",
-      "domain": "temporal",
-      "fr": "À l’horizon 2040.",
-      "deepl": "في أفق 2040.",
-      "final": "في أفق سنة 2040.",
-      "style_note": "إضافة 'سنة' للدقة الزمنية في الصياغة الإدارية العربية.",
+      "domain": "energy",
+      "fr": "OCP Green Energy met en service la première phase de son programme d’investissement solaire.",
+      "deepl": "OCP Green Energy تشرع في تشغيل المرحلة الأولى من برنامجها الاستثماري للطاقة الشمسية.",
+      "final": "تشرع OCP Green Energy في تشغيل المرحلة الأولى من برنامجها الاستثماري للطاقة الشمسية.",
+      "style_note": "بدء الجملة بالفعل 'تشرع' مباشرة يعزز الفاعلية المؤسسية.",
       "risk": "low"
     },
     {
       "id": "style_017",
-      "domain": "branding",
-      "fr": "Notre plus grand atout n’est pas le phosphate, mais l’Humain.",
-      "deepl": "أكبر ميزة لنا ليست الفوسفاط، بل الإنسان.",
-      "final": "ثروتنا الكبرى ليست الفوسفاط بل العنصر البشري.",
-      "style_note": "اختيار 'ثروتنا الكبرى' يمنح العبارة قوة مؤسساتية وإنسانية دون مبالغة.",
+      "domain": "water",
+      "fr": "Le pipeline J2K permet le transfert d’eau dessalée sur plus de 200 kilomètres.",
+      "deepl": "يسمح خط أنابيب J2K بنقل المياه المحلاة لمسافة تزيد عن 200 كيلومتر.",
+      "final": "يمكن خط أنابيب J2K من نقل المياه المحلاة على مسافة تزيد عن 200 كيلومتر.",
+      "style_note": "تفضيل 'يمكن من' على 'يسمح بـ' للتعبير عن الإمكانية.",
       "risk": "low"
     },
     {
       "id": "style_018",
-      "domain": "branding",
-      "fr": "Donner vie au phosphore.",
-      "deepl": "إعطاء الحياة للفوسفور.",
-      "final": "منح الفسفور للحياة.",
-      "style_note": "صياغة هوية/علامة فقط، لا تعمم على النصوص المالية أو التقنية.",
-      "risk": "branding_only"
-    },
-    {
-      "id": "style_019",
-      "domain": "strategy",
-      "fr": "Libérer tout le potentiel du phosphate marocain.",
-      "deepl": "تحرير كل إمكانات الفوسفاط المغربي.",
-      "final": "إطلاق العنان لكامل إمكانات الفوسفاط المغربي.",
-      "style_note": "مجاز مؤسسي مناسب للنصوص الرؤيوية والاستراتيجية.",
+      "domain": "partnership",
+      "fr": "Ce partenariat stratégique renforce l’engagement d’OCP en faveur de la durabilité.",
+      "deepl": "تعزز هذه الشراكة الاستراتيجية التزام OCP بالاستدامة.",
+      "final": "تعزز هذه الشراكة الاستراتيجية التزام مجموعة OCP الثابت بالاستدامة.",
+      "style_note": "إضافة 'الثابت' للتأكيد على جدية الالتزام، مع استخدام 'مجموعة'.",
       "risk": "medium"
     },
     {
+      "id": "style_019",
+      "domain": "innovation",
+      "fr": "L’innovation est le moteur de la croissance du Groupe.",
+      "deepl": "الابتكار هو محرك نمو المجموعة.",
+      "final": "يعد الابتكار رافعة أساسية لنمو المجموعة وتطورها.",
+      "style_note": "تحويل استعارة 'المحرك' إلى 'رافعة' أكثر مؤسساتية وسلاسة.",
+      "risk": "low"
+    },
+    {
       "id": "style_020",
-      "domain": "agriculture",
-      "fr": "Le bon nutriment, au bon dosage, au bon moment et au bon endroit.",
-      "deepl": "المغذي المناسب، بالجرعة المناسبة، في الوقت والمكان المناسبين.",
-      "final": "المغذيات المناسبة بالكمية المناسبة، في الوقت والمكان المناسبين.",
-      "style_note": "صياغة عربية متوازنة وواضحة للمبدأ التقني 4R.",
+      "domain": "industrial",
+      "fr": "Allier croissance de la production et préservation des ressources.",
+      "deepl": "الجمع بين نمو الإنتاج والحفاظ على الموارد.",
+      "final": "تحقيق التوازن بين النمو المستدام للإنتاج والمحافظة على الموارد.",
+      "style_note": "إبراز فكرة التوازن بدل الجمع الميكانيكي.",
       "risk": "low"
     },
     {
       "id": "style_021",
-      "domain": "strategy",
+      "domain": "agriculture",
       "fr": "Une transition agricole juste et rapide.",
       "deepl": "انتقال زراعي عادل وسريع.",
       "final": "تحول فلاحي عادل وسريع.",
@@ -349,60 +389,69 @@
     },
     {
       "id": "style_023",
-      "domain": "innovation",
-      "fr": "L’innovation est le moteur de la croissance du Groupe.",
-      "deepl": "الابتكار هو محرك نمو المجموعة.",
-      "final": "يعد الابتكار رافعة أساسية لنمو المجموعة وتطورها.",
-      "style_note": "تحويل استعارة 'المحرك' إلى 'رافعة' أكثر مؤسساتية وسلاسة.",
+      "domain": "strategy",
+      "fr": "Notre plus grand atout n’est pas le phosphate, mais l’Humain.",
+      "deepl": "أكبر ميزة لنا ليست الفوسفاط، بل الإنسان.",
+      "final": "ثروتنا الكبرى ليست الفوسفاط بل العنصر البشري.",
+      "style_note": "اختيار 'ثروتنا الكبرى' يمنح العبارة قوة مؤسساتية وإنسانية دون مبالغة.",
       "risk": "low"
     },
     {
       "id": "style_024",
-      "domain": "industrial",
-      "fr": "Allier croissance de la production et préservation des ressources.",
-      "deepl": "الجمع بين نمو الإنتاج والحفاظ على الموارد.",
-      "final": "تحقيق التوازن بين النمو المستدام للإنتاج والمحافظة على الموارد.",
-      "style_note": "إبراز فكرة التوازن بدل الجمع الميكانيكي.",
-      "risk": "low"
+      "domain": "branding",
+      "fr": "Donner vie au phosphore.",
+      "deepl": "إعطاء الحياة للفوسفور.",
+      "final": "منح الفسفور للحياة.",
+      "style_note": "صياغة هوية/علامة فقط، لا تعمم على النصوص المالية أو التقنية. 'منح الفوسفور للحياة' هي الصياغة الرسمية لمجموعة OCP.",
+      "risk": "branding_only"
     },
     {
       "id": "style_025",
-      "domain": "commercial",
-      "fr": "Agilité dans un environnement en constante évolution.",
-      "deepl": "رشاقة في بيئة دائمة التطور.",
-      "final": "مرونة في بيئة دائمة التطور.",
-      "style_note": "تفضيل 'مرونة' على 'رشاقة' في سياق الأعمال والأسواق.",
-      "risk": "low"
+      "domain": "strategy",
+      "fr": "Libérer tout le potentiel du phosphate marocain.",
+      "deepl": "تحرير كل إمكانات الفوسفاط المغربي.",
+      "final": "إطلاق العنان لكامل إمكانات الفوسفاط المغربي.",
+      "style_note": "مجاز مؤسسي مناسب للنصوص الرؤيوية والاستراتيجية.",
+      "risk": "medium"
     },
     {
       "id": "style_026",
-      "domain": "commercial",
-      "fr": "OCP a su faire preuve d’agilité.",
-      "deepl": "عرفت OCP كيف تثبت رشاقتها.",
-      "final": "أثبتت مجموعة OCP قدرتها على التكيف السريع.",
-      "style_note": "استبدال الصياغة الحرفية بصياغة عربية مؤسسية ذات فاعلية واضحة.",
+      "domain": "agriculture",
+      "fr": "Le bon nutriment, à la bonne dose, au bon moment et au bon endroit.",
+      "deepl": "المغذي المناسب، بالجرعة المناسبة، في الوقت والمكان المناسبين.",
+      "final": "العنصر الغذائي المناسب، بالجرعة المناسبة، في الوقت المناسب وفي المكان المناسب.",
+      "style_note": "صياغة عربية متوازنة وواضحة للمبدأ التقني 4R، مطابقة لأسلوب OCP الرسمي.",
       "risk": "low"
     },
     {
       "id": "style_027",
       "domain": "sustainability",
-      "fr": "Réduire l’empreinte hydrique du Groupe.",
-      "deepl": "تقليل البصمة المائية للمجموعة.",
-      "final": "تقليص الأثر المائي للمجموعة.",
-      "style_note": "تفضيل 'الأثر' في السياق البيئي العام.",
-      "risk": "contextual"
+      "fr": "Le Groupe OCP est fermement convaincu que leadership et rentabilité vont de pair avec responsabilité sociale et développement durable.",
+      "deepl": "تؤمن مجموعة OCP إيمانا راسخا بأن الريادة والربحية مرادفين للمسؤولية الاجتماعية والتنمية المستدامة.",
+      "final": "تؤمن مجموعة OCP إيمانا راسخا أن الريادة والربحية لا تنفصلان عن المسؤولية الاجتماعية والتنمية المستدامة.",
+      "style_note": "صياغة أصلية من التقرير السنوي 2023، تم تعديلها قليلاً لتكون أكثر دقة.",
+      "risk": "low"
     },
     {
       "id": "style_028",
-      "domain": "social",
-      "fr": "Une réponse concrète, ancrée dans le terrain.",
-      "deepl": "استجابة ملموسة، متجذرة في الميدان.",
-      "final": "إجابة ملموسة وراسخة على أرض الواقع.",
-      "style_note": "تعبير عربي طبيعي يحافظ على قوة الصورة دون حرفية.",
+      "domain": "industrial",
+      "fr": "Le TSP Hub constitue une étape majeure dans notre stratégie de production d'engrais phosphatés.",
+      "deepl": "يمثل مركز TSP خطوة كبرى في استراتيجيتنا لإنتاج الأسمدة الفوسفاطية.",
+      "final": "يمثل مركز TSP خطوة كبرى في استراتيجيتنا لإنتاج الأسمدة الفوسفاطية.",
+      "style_note": "مقتبسة من بيان صحفي 2025، صياغة واضحة ومؤسساتية.",
       "risk": "low"
     },
     {
       "id": "style_029",
+      "domain": "water",
+      "fr": "OCP Green Water ambitionne de devenir un acteur de référence dans la transition hydrique au Maroc et en Afrique.",
+      "deepl": "تطمح OCP Green Water إلى أن تصبح فاعلا مرجعيا في مجال التحول المائي بالمغرب وإفريقيا.",
+      "final": "تطمح OCP Green Water إلى أن تصبح فاعلا مرجعيا في مجال التحول المائي بالمغرب وإفريقيا.",
+      "style_note": "مقتبسة، صياغة متوازنة وجيدة، تُستخدم كما هي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_030",
       "domain": "social",
       "fr": "Construire un avenir plus juste, plus résilient et plus durable.",
       "deepl": "بناء مستقبل أكثر عدلا وأكثر مرونة وأكثر استدامة.",
@@ -411,13 +460,148 @@
       "risk": "low"
     },
     {
-      "id": "style_030",
+      "id": "style_031",
       "domain": "africa",
       "fr": "Le grenier du monde.",
       "deepl": "مخزن العالم.",
       "final": "سلة غذاء العالم.",
       "style_note": "توطين المجاز بما يلائم العربية المؤسسية وسياق الأمن الغذائي.",
       "risk": "low"
+    },
+    {
+      "id": "style_032",
+      "domain": "sustainability",
+      "fr": "Réduire l’empreinte hydrique du Groupe.",
+      "deepl": "تقليل البصمة المائية للمجموعة.",
+      "final": "تقليص الأثر المائي للمجموعة.",
+      "style_note": "تفضيل 'الأثر' في السياق البيئي العام.",
+      "risk": "contextual"
+    },
+    {
+      "id": "style_033",
+      "domain": "strategy",
+      "fr": "Une réponse concrète, ancrée dans le terrain.",
+      "deepl": "استجابة ملموسة، متجذرة في الميدان.",
+      "final": "إجابة ملموسة وراسخة على أرض الواقع.",
+      "style_note": "تعبير عربي طبيعي يحافظ على قوة الصورة دون حرفية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_034",
+      "domain": "financial",
+      "fr": "Le succès de notre émission obligataire témoigne de la confiance des investisseurs.",
+      "deepl": "يعكس نجاح إصدارنا للسندات ثقة المستثمرين.",
+      "final": "يعكس نجاح إصدارنا للسندات ثقة المستثمرين في مسار المجموعة.",
+      "style_note": "إضافة 'في مسار المجموعة' يزيد من الدقة والطابع المؤسسي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_035",
+      "domain": "partnership",
+      "fr": "Ce partenariat ouvre de nouvelles perspectives pour une croissance inclusive en Afrique.",
+      "deepl": "تفتح هذه الشراكة آفاقا جديدة للنمو الشامل في إفريقيا.",
+      "final": "تفتح هذه الشراكة آفاقا جديدة لنمو شامل ومستدام في إفريقيا.",
+      "style_note": "إضافة 'ومستدام' لإبراز بعد الاستدامة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_036",
+      "domain": "agriculture",
+      "fr": "Le Groupe OCP est le dépositaire de confiance de l'une des ressources naturelles les plus précieuses au monde - le phosphate.",
+      "deepl": "مجموعة OCP هي الجهة المسؤولة عن تدبير أحد الموارد الطبيعية الأكثر قيمة في العالم -- الفوسفاط.",
+      "final": "تعتبر مجموعة OCP فاعلا رئيسيا في تدبير أحد الموارد الاستراتيجية الأكثر أهمية للفلاحة العالمية، وهو الفوسفاط.",
+      "style_note": "تحسين 'الجهة المسؤولة عن إدارة' إلى 'فاعل رئيسي في تدبير'، وإضافة 'للفلاحة العالمية' لتحديد السياق.",
+      "risk": "critical"
+    },
+    {
+      "id": "style_037",
+      "domain": "institutional",
+      "fr": "Fondé en 1920, basé au Maroc et ancré en Afrique.",
+      "deepl": "تأسست سنة 1920 ويقع مقرها في المغرب مع تواجد قوي في إفريقيا.",
+      "final": "تأسست المجموعة سنة 1920، وتتخذ من المغرب مقرا لها، مع حضور راسخ في إفريقيا.",
+      "style_note": "بدلاً من 'تواجد قوي'، استخدم 'حضور راسخ' الأكثر ملاءمة.",
+      "risk": "low"
+    },
+    {
+      "id": "style_038",
+      "domain": "sustainability",
+      "fr": "En valorisant tout le potentiel du phosphate.",
+      "deepl": "من خلال الاستفادة الكاملة من إمكانات الفوسفاط.",
+      "final": "من خلال الاستفادة الكاملة من إمكانات الفوسفاط.",
+      "style_note": "صياغة جيدة، تُستخدم كما هي.",
+      "risk": "low"
+    },
+    {
+      "id": "style_039",
+      "domain": "water",
+      "fr": "Un pas décisif pour la souveraineté hydrique du Groupe et du Maroc.",
+      "deepl": "خطوة كبرى نحو تحقيق السيادة المائية للمجموعة والمغرب.",
+      "final": "خطوة كبرى من OCP Green Water نحو تحقيق السيادة المائية للمجموعة والمغرب.",
+      "style_note": "إضافة الفاعل (OCP Green Water) يوضح المسؤولية.",
+      "risk": "low"
+    },
+    {
+      "id": "style_040",
+      "domain": "innovation",
+      "fr": "Catalyser l'innovation pour une agriculture durable.",
+      "deepl": "تحفيز الابتكار من أجل فلاحة مستدامة.",
+      "final": "تحفيز الابتكار من أجل فلاحة مستدامة وقادرة على الصمود.",
+      "style_note": "إضافة 'وقادرة على الصمود' لتعزيز معنى resilience.",
+      "risk": "medium"
+    },
+    {
+      "id": "style_041",
+      "domain": "energy",
+      "fr": "Une centrale solaire au cœur d'un site minier.",
+      "deepl": "محطة للطاقة الشمسية في قلب موقع منجمي.",
+      "final": "محطة للطاقة الشمسية في صميم موقع منجمي.",
+      "style_note": "تطبيق قاعدة تجنب 'في قلب' واستخدام 'في صميم'.",
+      "risk": "low"
+    },
+    {
+      "id": "style_042",
+      "domain": "financial",
+      "fr": "Un investissement total d'environ 13 milliards de dollars.",
+      "deepl": "استثمار إجمالي بحوالي 13 مليار دولار.",
+      "final": "استثمار إجمالي بقيمة 13 مليار دولار أمريكي.",
+      "style_note": "تفضيل 'بقيمة' على 'بحوالي' للدقة، مع إضافة 'أمريكي' للتوضيح.",
+      "risk": "low"
+    },
+    {
+      "id": "ex_improve_001",
+      "domain": "institutional",
+      "fr": "Le Groupe OCP est le dépositaire de confiance des réserves de phosphate.",
+      "deepl": "مجموعة OCP هي الجهة المسؤولة عن إدارة احتياطيات الفوسفاط.",
+      "final": "تعتبر مجموعة OCP فاعلاً رئيسياً في تدبير احتياطيات الفوسفاط.",
+      "style_note": "تحسين 'الجهة المسؤولة عن إدارة' إلى 'فاعل رئيسي في تدبير'.",
+      "risk": "critical"
+    },
+    {
+      "id": "ex_improve_002",
+      "domain": "agriculture",
+      "fr": "Le phosphore joue un rôle vital dans la croissance des plantes.",
+      "deepl": "يلعب الفوسفور دوراً حيوياً في نمو النباتات.",
+      "final": "يضطلع الفوسفاط بدور حيوي في نمو النباتات.",
+      "style_note": "تحويل 'يلعب دوراً' إلى 'يضطلع بدور' واستخدام 'الفوسفاط'.",
+      "risk": "high"
+    },
+    {
+      "id": "ex_improve_003",
+      "domain": "strategy",
+      "fr": "Cette approche permet d'améliorer la productivité.",
+      "deepl": "يسمح هذا النهج بتحسين الإنتاجية.",
+      "final": "يمكن هذا النهج من تحسين الإنتاجية.",
+      "style_note": "استبدال 'يسمح ب' بـ 'يمكن من'.",
+      "risk": "high"
+    },
+    {
+      "id": "ex_improve_004",
+      "domain": "identity",
+      "fr": "Nous libérons tout le potentiel du phosphate.",
+      "deepl": "نحن نحرر كل إمكانات الفوسفاط.",
+      "final": "نطور حلولاً متقدمة لتغذية النباتات من الفوسفاط.",
+      "style_note": "تجنب العبارة الرنانة 'نحرر' واستخدام عبارة أكثر عملية.",
+      "risk": "medium"
     }
   ],
   "risk_policy": {
@@ -428,15 +612,16 @@
     "critical": "يجب احترامه بصرامة لأنه مرتبط بالدقة أو الأرقام أو المصطلحات."
   },
   "prompt_usage_guidelines": {
-    "max_examples_per_request": 6,
-    "selection_strategy": "اختر الأمثلة الأقرب إلى مجال النص: financial, governance, sustainability, agriculture, industrial, branding.",
+    "max_examples_per_request": 8,
+    "selection_strategy": "اختر الأمثلة الأقرب إلى مجال النص: financial, governance, sustainability, agriculture, industrial, water, energy, branding, partnership.",
     "do_not_include_all_memory_in_prompt": true,
     "recommended_flow": [
       "تحديد مجال النص",
-      "اختيار 3 إلى 6 أمثلة ذات صلة",
-      "تطبيق القواعد العامة",
+      "اختيار 4 إلى 8 أمثلة ذات صلة",
+      "تطبيق القواعد العامة (مع التركيز على قواعد 002، 006، 007، 009، 010، 011، 012، 013)",
       "إعادة الصياغة",
-      "التحقق من الدقة مقابل النص الفرنسي"
+      "التحقق من الدقة مقابل النص الفرنسي",
+      "التحقق من استخدام المصطلحات الرسمية: فوسفاط، فلاحة، فلاحون، أسمدة مشخصة، التحول الطاقي"
     ]
   }
 }

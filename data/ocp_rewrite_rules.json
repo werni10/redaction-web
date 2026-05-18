@@ -1,0 +1,108 @@
+{
+  "source": "OCP Group — corpus institutionnel français",
+  "date": "2026-05-14",
+  "preferred_verb_patterns": [
+    {
+      "verb": "s'engager à",
+      "function": "verbe de promesse institutionnelle ferme",
+      "recommended_translation_style": "يلتزم بـ — éviter 'يعتزم' ou 'يسعى'"
+    },
+    {
+      "verb": "viser / ambitionner",
+      "function": "verbe d'aspiration stratégique",
+      "recommended_translation_style": "يستهدف (objectifs chiffrés) / يطمح إلى (qualitatif)"
+    },
+    {
+      "verb": "poursuivre (ses efforts)",
+      "function": "verbe de continuité",
+      "recommended_translation_style": "يواصل / يمضي قدمًا في"
+    },
+    {
+      "verb": "consolider",
+      "function": "verbe de renforcement institutionnel",
+      "recommended_translation_style": "يعزز / يرسّخ"
+    },
+    {
+      "verb": "innover / mettre l'innovation au cœur",
+      "function": "verbe d'identité stratégique",
+      "recommended_translation_style": "يبتكر / يجعل الابتكار محور استراتيجيته"
+    },
+    {
+      "verb": "accompagner (les agriculteurs)",
+      "function": "verbe de relation client/partenaire",
+      "recommended_translation_style": "يرافق / يدعم"
+    },
+    {
+      "verb": "transformer",
+      "function": "verbe de rupture stratégique",
+      "recommended_translation_style": "يُحوِّل / يُغيِّر بنيويًا"
+    },
+    {
+      "verb": "mobiliser (des financements / des acteurs)",
+      "function": "verbe d'activation collective",
+      "recommended_translation_style": "يُعبِّئ (ressources) / يحشد (acteurs)"
+    },
+    {
+      "verb": "intégrer (dans sa stratégie)",
+      "function": "verbe d'incorporation systémique",
+      "recommended_translation_style": "يُدمج (profond) / يُدرج (formel)"
+    },
+    {
+      "verb": "valoriser (les déchets / les ressources)",
+      "function": "verbe d'économie circulaire",
+      "recommended_translation_style": "يُثمِّن"
+    }
+  ],
+  "translation_risks": [
+    {
+      "risk": "Ambiguïté greenwashing sur 'transition juste'",
+      "recommended_strategy": "Garder 'العادل' – ne pas traduire par 'سلس'"
+    },
+    {
+      "risk": "Surinflation des engagements ESG par nominalisation",
+      "recommended_strategy": "Reconstruire avec verbes actifs"
+    },
+    {
+      "risk": "Faux-ami 'customisé'",
+      "recommended_strategy": "Normaliser en 'مُخصَّصة'"
+    },
+    {
+      "risk": "Structure nominale française intraduisible",
+      "recommended_strategy": "Déconstruire en verbe actif"
+    },
+    {
+      "risk": "Ambiguïté 'santé des sols' vs 'fertilité'",
+      "recommended_strategy": "Utiliser 'صحة التربة' non 'خصوبة'"
+    },
+    {
+      "risk": "Sur-solennisation en arabe",
+      "recommended_strategy": "Registre marocain moderne, pas de formules religieuses"
+    },
+    {
+      "risk": "Confusion Scope 1/2/3",
+      "recommended_strategy": "Garder 'Scope' translittéré avec explication"
+    },
+    {
+      "risk": "Généralisation paternaliste sur l'Afrique",
+      "recommended_strategy": "Donner l'agentivité à l'Afrique (sujet actif)"
+    },
+    {
+      "risk": "NIYA / NEFS",
+      "recommended_strategy": "Maintenir en arabe original (النية / النفس)"
+    }
+  ],
+  "arabic_rewriting_guidelines": [
+    "RÈGLE 1 — VERBOSITÉ NOMINALE : Décompresser les groupes nominaux en constructions verbales actives.",
+    "RÈGLE 2 — HIÉRARCHIE DE L'ENGAGEMENT : يلتزم > يستهدف > يسعى إلى > يطمح.",
+    "RÈGLE 3 — FORMULES-SIGNATURE : Traiter comme unités invariables.",
+    "RÈGLE 4 — RYTHME BINAIRE : Conserver les paires.",
+    "RÈGLE 5 — AFRIQUE COMME SUJET ACTIF : Reformuler l'objet passif en sujet actif.",
+    "RÈGLE 6 — CHIFFRES ET ENGAGEMENTS : Conserver les chiffres à leur place.",
+    "RÈGLE 7 — ACRONYMES ESG : Maintenir en latin avec traduction première occurrence.",
+    "RÈGLE 8 — REGISTRE MAROCAIN-INSTITUTIONNEL : Référence OCP, discours royaux.",
+    "RÈGLE 9 — RÉDUCTION DE LA REDONDANCE VALORIELLE : 2-3 adjectifs maximum.",
+    "RÈGLE 10 — 'NOUS' INSTITUTIONNEL : Préférer نحن et harmoniser.",
+    "RÈGLE 11 — NIYA / NEFS : Ne jamais traduire, écrire en arabe standard.",
+    "RÈGLE 12 — ANTI-INFLATION SUPERLATIVE : Ne pas ajouter de superlatifs absents."
+  ]
+}

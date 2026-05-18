@@ -1,0 +1,12 @@
+{
+  "source": "OCP Group — corpus institutionnel français",
+  "date": "2026-05-14",
+  "institutional_tone_profile": {
+    "formality": "Élevée — registre direction générale et rapport annuel. Pas de langage opérationnel terrain.",
+    "precision": "Élevée sur engagements chiffrés — moyenne sur bénéfices ESG (formules aspirationnelles).",
+    "promotional_intensity": "Modérée à élevée — superlatifs encadrés par références ESG.",
+    "sentence_rhythm": "Phrases longues à subordination multiple, alternant avec formules courtes assertives. Rythme binaire fréquent.",
+    "preferred_sentence_length": "25-45 mots (prose) ; formules-clés : 8-15 mots.",
+    "tone_description": "Ton institutionnel ambitieux à vocation mondiale, combinant rigueur technique, engagement ESG et posture de leadership continental (Afrique). Forte présence du 'nous' collectif (le Groupe). Tendance à l'énoncé de principes avant les détails opérationnels. Registre légèrement solennel sans être bureaucratique."
+  }
+}

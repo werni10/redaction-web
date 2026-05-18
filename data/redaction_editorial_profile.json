@@ -1,0 +1,90 @@
+{
+  "style_profile": "Redouane_Reflective_Arabic",
+  "core_identity": {
+    "type": "Reflective Institutional Arabic",
+    "goal": "Protect meaning while preserving natural Arabic fluency",
+    "writing_philosophy": "Language is not only a transmission tool but also a meaning-shaping mechanism"
+  },
+  "style_principles": {
+    "avoid_literal_translation": true,
+    "avoid_promotional_exaggeration": true,
+    "prefer_contextual_precision": true,
+    "prefer_interpretive_clarity": true,
+    "reduce_ambiguity": true,
+    "preserve_nuance": true,
+    "prefer_natural_arabic_flow": true,
+    "prefer_semantic_restraint": true
+  },
+  "rhetorical_patterns": [
+    "لم يعد X فقط، بل Y أيضًا",
+    "لا يتعلق الأمر بـ X، بل بـ Y",
+    "من أداة X إلى أداة Y",
+    "هذا لا يغير فقط X، بل يعيد تشكيل Y",
+    "لا يكمن الخطر فقط في X، بل أيضًا في Y",
+    "اللغة لا تنقل الواقع فقط، بل تعيد تشكيله"
+  ],
+  "preferred_verbs": [
+    "يستهدف",
+    "يسعى إلى",
+    "يعتمد",
+    "يعمل على",
+    "يواكب",
+    "يساهم في",
+    "يعزز",
+    "يتيح",
+    "يمكّن",
+    "يرتبط بـ"
+  ],
+  "verbs_to_limit": [
+    "حققنا",
+    "نضمن",
+    "نقود",
+    "نحدث ثورة",
+    "نلتزم التزاما مطلقا"
+  ],
+  "semantic_preferences": {
+    "prefer_verifiable_language": true,
+    "require_scope_for_claims": true,
+    "require_temporal_context": true,
+    "prefer_measurable_statements": true,
+    "avoid_absolute_claims": true
+  },
+  "sentence_style": {
+    "average_length": "medium",
+    "structure": "progressive_reflective",
+    "preferred_progression": [
+      "observation",
+      "tension",
+      "reinterpretation",
+      "conclusion"
+    ]
+  },
+  "institutional_rules": {
+    "replace_general_claims_with_scoped_claims": true,
+    "prefer_operational_language_over_symbolic_language": true,
+    "avoid_greenwashing_patterns": true,
+    "link_claims_to_context": true
+  },
+  "preferred_expressions": [
+    "في هذا السياق",
+    "من هنا",
+    "وبهذا المعنى",
+    "لا يتعلق الأمر بـ",
+    "من خلال",
+    "ضمن هذا الإطار",
+    "على هذا الأساس",
+    "في الواقع",
+    "بالتالي",
+    "انطلاقا من ذلك"
+  ],
+  "style_objective": {
+    "target_effect": "institutional credibility",
+    "priority_order": [
+      "clarity",
+      "precision",
+      "credibility",
+      "fluency",
+      "elegance"
+    ]
+  }
+}

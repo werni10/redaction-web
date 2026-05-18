@@ -1,0 +1,56 @@
+{
+  "source": "OCP Group — corpus institutionnel français",
+  "date": "2026-05-14",
+  "rhetorical_patterns": [
+    {
+      "pattern": "leadership et rentabilité sont nécessairement synonymes de responsabilité sociétale",
+      "purpose": "équation axiologique — formule signature",
+      "translation_guidance": "الريادة والربحية لا تنفصلان عن المسؤولية الاجتماعية"
+    },
+    {
+      "pattern": "non seulement X mais aussi Y (catalyst, not just imperative)",
+      "purpose": "élévation rhétorique",
+      "translation_guidance": "ليس فحسب... بل أيضًا"
+    },
+    {
+      "pattern": "de X à Y (de l'extraction minière à l'éducation)",
+      "purpose": "extension de champ",
+      "translation_guidance": "من... إلى (directionnel)"
+    },
+    {
+      "pattern": "il ne s'agit pas de X mais de Y",
+      "purpose": "rectification stratégique",
+      "translation_guidance": "الأمر لا يتعلق بـ X بل بـ Y"
+    },
+    {
+      "pattern": "avec la conviction que / fermement convaincu que",
+      "purpose": "ancrage idéologique",
+      "translation_guidance": "بقناعة راسخة أن"
+    },
+    {
+      "pattern": "un siècle d'expertise / plus d'un siècle",
+      "purpose": "légitimation historique",
+      "translation_guidance": "خبرة تمتد لأكثر من قرن من الزمن"
+    },
+    {
+      "pattern": "s'inscrire dans / dans le cadre de / en ligne avec",
+      "purpose": "alignement institutionnel",
+      "translation_guidance": "يندرج في إطار / يتوافق مع"
+    },
+    {
+      "pattern": "plateforme de partenariat / écosystème intégré",
+      "purpose": "métaphore structurante",
+      "translation_guidance": "منصة للشراكة / منظومة متكاملة"
+    },
+    {
+      "pattern": "au cœur de / central à",
+      "purpose": "hiérarchisation",
+      "translation_guidance": "في صميم / يتمحور حول"
+    },
+    {
+      "pattern": "X est à la fois A et B (sustainability as imperative AND catalyst)",
+      "purpose": "dépassement binaire",
+      "translation_guidance": "في آنٍ واحد / في الوقت ذاته"
+    }
+  ]
+}

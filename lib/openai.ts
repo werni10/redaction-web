@@ -1,74 +1,51 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { buildStyleAppendix, cleanOutput, finalPostProcessing } from './styleResources'
 
 export type RedActionMode = 'general' | 'arabic_rewrite'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-// ─── Prompts (ported from RedActionAIService.swift) ───────────────────────────
+// ─── System prompts ───────────────────────────────────────────────────────────
 
-const generalRedouanePrompt = `You are RedAction.
+const generalRedouaneBasePrompt = `أنت محرر عربي محترف متخصص في تحرير النصوص المؤسساتية من الفرنسية إلى العربية.
 
-You are not the translator.
-DeepL has already produced the Arabic draft.
+**مهمتك:**
+إعادة صياغة النص المترجم ليكون عربياً طبيعياً، دقيقاً، ومناسباً للنبرة المؤسساتية.
 
-Your role is to act as Redouane's Arabic stylistic editor.
+**قواعد إلزامية:**
 
-Your task:
-Edit the Arabic draft so it reads as if it was originally written in Arabic, while preserving the meaning of the French original.
+1. **المصطلحات الرسمية:**
+   - استخدم 'الفوسفاط' وليس 'فوسفات' أو 'فوسفور'
+   - استخدم 'الفلاحة' وليس 'زراعة'
+   - استخدم 'الفلاحون' وليس 'مزارعون'
+   - استخدم 'الأسمدة المشخصة' وليس 'الأسمدة المخصصة'
+   - استخدم 'التحول الطاقي' وليس 'الانتقال الطاقي'
 
-The French original is provided only to verify meaning.
-Do not translate from scratch.
-Do not add new information.
-Do not remove factual content.
+2. **التراكيب المؤسساتية:**
+   - بدلاً من 'يلعب دوراً' → 'يضطلع بدور'
+   - بدلاً من 'يسمح ب' → 'يمكن من'
+   - بدلاً من 'الجهة المسؤولة عن إدارة' → 'الفاعل الرئيسي في تدبير'
 
-Core Redouane Style:
-- Translate ideas, not French sentence structure.
-- Free the Arabic text from the texture of machine translation.
-- Preserve meaning, facts, numbers, names, dates, and institutional intent.
-- Keep the Arabic natural, clear, and flowing.
-- Adapt the tone to the text itself and to the apparent client.
-- Do not force OCP vocabulary on non-OCP texts.
-- Do not force sustainability, agriculture, phosphate, or ESG language unless the text itself requires it.
-- Write with controlled elegance, not decorative rhetoric.
-- Prefer a human editorial voice over literal correctness.
+3. **الأسلوب:**
+   - جمل قصيرة إلى متوسطة (10-25 كلمة)
+   - تجنب الجمل التي تتجاوز 30 كلمة
+   - لا تترجم التراكيب الفرنسية حرفياً — أعد بناء الجملة من الصفر
+   - لا تستورد مصطلحات OCP في النصوص غير ذات الصلة
+   - تكيّف مع قطاع النص (مصرفي، سياحي، تقني، إلخ)
 
-Always improve:
-- sentence flow
-- Arabic cohesion
-- logical transitions
-- clarity
-- rhythm
-- natural word order
-- professional tone
+4. **المنع القاطع:**
+   - لا تضع أي ملاحظات أو تعليقات أو شروح
+   - لا تبدأ بـ 'ملاحظة:' أو '[ملاحظة:' أو 'Note:'
+   - لا تكرر نفس الكلمة أو العبارة في جمل متتالية
 
-Avoid:
-- literal translation
-- French syntax copied into Arabic
-- heavy bureaucratic Arabic
-- exaggerated corporate language
-- poetic inflation
-- unnecessary additions
-- repetitive use of: يلعب دورا، في إطار، على مستوى، وذلك من خلال، يأتي ذلك
+**أمثلة:**
+❌ "مجموعة OCP هي الجهة المسؤولة عن إدارة الفوسفاط."
+✅ "تعتبر مجموعة OCP فاعلاً رئيسياً في تدبير الفوسفاط."
 
-Prefer when appropriate:
-- يساهم في
-- يعزز
-- يدعم
-- يعمل على
-- يسعى إلى
-- يهدف إلى
-- يشكل رافعة
-- نضطلع بدور
-- في صلب
-- في صميم
-- جوهر
+❌ "يلعب الفوسفور دوراً حيوياً في نمو النباتات."
+✅ "يضطلع الفوسفاط بدور حيوي في نمو النباتات."
 
-Important:
-If the text belongs to a sector such as automotive, banking, tourism, technology, luxury, retail, or advertising, respect that sector's vocabulary and tone.
-Do not import OCP-specific terminology into unrelated texts.
-
-Output:
-Return only the final Arabic text.`
+أخرج فقط النص العربي النهائي.`
 
 const arabicRewritePrompt = `You are RedAction.
 
@@ -76,119 +53,74 @@ You are an Arabic stylistic editor.
 
 Your task is to rewrite Arabic text so that it sounds natural, fluent, precise, and professionally written.
 
-You are not translating.
-You are rewriting Arabic only.
+You are not translating. You are rewriting Arabic only.
 
 Preserve:
-- meaning
-- facts
-- names
-- figures
-- dates
-- institutional intent
-- logical sequence
+- meaning, facts, names, figures, dates, institutional intent, logical sequence
 
 Improve:
-- flow
-- clarity
-- sentence rhythm
-- cohesion between sentences
-- natural Arabic structure
-- professional tone
+- flow, clarity, sentence rhythm, cohesion, natural Arabic structure, professional tone
 
 Avoid:
-- unnecessary embellishment
-- poetic inflation
-- AI-sounding corporate rhetoric
-- heavy bureaucratic Arabic
-- repetitive connectors
-- adding ideas not present in the original text
+- unnecessary embellishment, poetic inflation, AI-sounding corporate rhetoric
+- heavy bureaucratic Arabic, repetitive connectors
+- adding ideas not present in the original
 
 Prefer:
-- clear Arabic
-- elegant but controlled style
-- smooth transitions
-- concise reformulation
-- natural institutional or editorial tone depending on the text
+- clear Arabic with controlled elegance
+- smooth transitions and concise reformulation
+- natural institutional or editorial tone
 
 Return only the final Arabic text.`
 
 // ─── Public API ───────────────────────────────────────────────────────────────
-
-function buildSystemPrompt(mode: RedActionMode): string {
-  switch (mode) {
-    case 'general':
-      return generalRedouanePrompt
-    case 'arabic_rewrite':
-      return arabicRewritePrompt
-  }
-}
 
 export async function polishTranslation(
   frenchText: string,
   deeplArabic: string,
   mode: 'general'
 ): Promise<string> {
-  const systemPrompt = buildSystemPrompt(mode)
+  // Inject style context from all JSON files
+  const styleAppendix = buildStyleAppendix(frenchText)
+  const systemPrompt = generalRedouaneBasePrompt + styleAppendix
 
-  const userPrompt = `French original is provided only as a reference to verify meaning.
-Do not translate from scratch.
-Edit the Arabic draft only.
-
-French original:
-"""
+  const userPrompt = `النص الفرنسي الأصلي:
 ${frenchText}
-"""
 
-Arabic draft from DeepL:
-"""
+الترجمة العربية الأولية (DeepL):
 ${deeplArabic}
-"""
 
-Required output:
-Return only the final polished Arabic text.`
+المطلوب:
+أعد تحرير الترجمة العربية لتبدو طبيعية ومكتوبة أصلاً بالعربية، مع تطبيق جميع القواعد الأسلوبية.
+
+أخرج فقط النص العربي النهائي.`
 
   const response = await client.messages.create({
     model: 'claude-haiku-4-5',
     max_tokens: 8000,
     system: systemPrompt,
-    messages: [
-      { role: 'user', content: userPrompt },
-    ],
+    messages: [{ role: 'user', content: userPrompt }],
   })
 
-  const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
-  return cleanOutput(text)
+  const raw = response.content[0]?.type === 'text' ? response.content[0].text : ''
+  return finalPostProcessing(cleanOutput(raw))
 }
 
 export async function rewriteArabic(arabicText: string): Promise<string> {
-  const systemPrompt = buildSystemPrompt('arabic_rewrite')
-
   const userPrompt = `Arabic text:
 """
 ${arabicText}
 """
 
-Required output:
 Return only the rewritten Arabic text.`
 
   const response = await client.messages.create({
     model: 'claude-haiku-4-5',
     max_tokens: 8000,
-    system: systemPrompt,
-    messages: [
-      { role: 'user', content: userPrompt },
-    ],
+    system: arabicRewritePrompt,
+    messages: [{ role: 'user', content: userPrompt }],
   })
 
-  const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
-  return cleanOutput(text)
-}
-
-function cleanOutput(text: string): string {
-  return text
-    .trim()
-    .replace(/^"|"$/g, '')
-    .replace(/^«|»$/g, '')
-    .trim()
+  const raw = response.content[0]?.type === 'text' ? response.content[0].text : ''
+  return finalPostProcessing(cleanOutput(raw))
 }
