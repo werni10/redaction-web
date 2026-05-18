@@ -8,7 +8,7 @@ import { Check, Settings, User, BarChart2, Mail, Sparkles, Crown } from 'lucide-
 
 const PLAN_ORDER: SubscriptionPlan[] = ['free', 'starter', 'pro', 'enterprise']
 
-const CONTACT_EMAIL = 'omaypodcast@gmail.com'
+const CONTACT_EMAIL = 'redaction@sainteligence.com'
 
 function planRank(p: SubscriptionPlan) {
   return PLAN_ORDER.indexOf(p)
