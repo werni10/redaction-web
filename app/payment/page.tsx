@@ -197,8 +197,8 @@ export default function PaymentPage() {
           </div>
           <div>
             <p className="text-sm text-gray-600 mb-1">Montant</p>
-            <p className="text-3xl font-bold text-pink-600">
-              ${(paymentData.amount / 100).toFixed(2)}
+            <p className="text-3xl font-bold text-red-600">
+              {(paymentData.amount / 100).toFixed(0)} MAD
               <span className="text-sm text-gray-600 font-normal">/mois</span>
             </p>
           </div>
