@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Home, Clock, Star, LogOut, Settings } from 'lucide-react'
+import { Home, Clock, Star, LogOut, Settings, FolderOpen } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 
@@ -11,6 +11,7 @@ const navItems = [
   { icon: Home, label: 'Accueil', href: '/' },
   { icon: Clock, label: 'Historique', href: '/history' },
   { icon: Star, label: 'Favoris', href: '/favorites' },
+  { icon: FolderOpen, label: 'Dossiers', href: '/folders' },
 ]
 
 export default function Sidebar() {
