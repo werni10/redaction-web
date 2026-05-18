@@ -47,7 +47,6 @@ export async function createCheckoutToken(
     })
 
     const data = await response.json()
-    console.log('YouCanPay tokenize raw response:', JSON.stringify(data))
 
     if (!response.ok || data.success === false) {
       throw new Error(`YouCanPay tokenize failed: ${JSON.stringify(data)}`)
@@ -103,7 +102,6 @@ export async function processPayment(
     'payment_method[type]': 'credit_card',
   })
 
-  console.log('YouCanPay pay request body:', body.toString())
   try {
     const response = await fetch(`${API_BASE}/pay`, {
       method: 'POST',
@@ -112,7 +110,6 @@ export async function processPayment(
     })
 
     const data = await response.json()
-    console.log('YouCanPay pay response:', JSON.stringify(data))
 
     if (!response.ok || data.success === false) {
       throw new Error(`YouCanPay payment failed: ${JSON.stringify(data)}`)

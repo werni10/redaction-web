@@ -3,52 +3,58 @@ import { createClient } from '@/lib/supabase/server'
 import { translateToArabic } from '@/lib/deepl'
 import { polishTranslation } from '@/lib/openai'
 import { countWords, incrementUsage, saveTranslation, getUsage } from '@/lib/usage'
-import { hasExceededLimit } from '@/lib/subscriptions'
+
+const WORD_LIMITS: Record<string, number> = {
+  free: 5000,
+  starter: 20000,
+  pro: 100000,
+  enterprise: 1000000,
+}
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await req.json()
   const { frenchText } = body as { frenchText: string }
+  if (!frenchText?.trim()) return NextResponse.json({ error: 'frenchText required' }, { status: 400 })
 
-  if (!frenchText?.trim()) {
-    return NextResponse.json({ error: 'frenchText required' }, { status: 400 })
-  }
-
-  // Check usage limits and subscription
   const [usage, { data: profile }] = await Promise.all([
     getUsage(user.id),
-    supabase
-      .from('user_subscriptions')
-      .select('plan, status, current_period_end')
-      .eq('user_id', user.id)
-      .single(),
+    supabase.from('user_subscriptions').select('plan, status, current_period_end').eq('user_id', user.id).single(),
   ])
 
-  const plan = (profile?.plan || 'free') as 'free' | 'pro' | 'enterprise'
+  const plan = profile?.plan || 'free'
 
-  // Check if subscription expired
-  if (plan !== 'free' && profile?.status === 'active' && profile?.current_period_end) {
+  // Check subscription expiry
+  if (plan !== 'free' && profile?.current_period_end) {
     if (new Date(profile.current_period_end) < new Date()) {
-      return NextResponse.json(
-        { error: 'Subscription expired. Please renew to continue.' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Subscription expired. Please renew.' }, { status: 403 })
     }
   }
 
   const wordCount = countWords(frenchText)
+  const limit = WORD_LIMITS[plan] ?? 5000
 
-  if (usage.wordCount + wordCount > (plan === 'free' ? 5000 : plan === 'pro' ? 100000 : 1000000)) {
-    return NextResponse.json(
-      { error: `Monthly limit exceeded for ${plan} plan` },
-      { status: 429 }
-    )
+  if (usage.wordCount + wordCount > limit) {
+    return NextResponse.json({ error: `Limite mensuelle atteinte (plan ${plan})` }, { status: 429 })
+  }
+
+  // ── Cache check: same source text already translated this month? ──────────
+  const normalizedText = frenchText.trim()
+  const { data: cached } = await supabase
+    .from('translations')
+    .select('result_text, word_count')
+    .eq('user_id', user.id)
+    .eq('mode', 'general')
+    .eq('source_text', normalizedText)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single()
+
+  if (cached?.result_text) {
+    return NextResponse.json({ result: cached.result_text, wordCount: cached.word_count ?? wordCount, cached: true })
   }
 
   try {

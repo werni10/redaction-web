@@ -128,7 +128,7 @@ Return only the final Arabic text.`
 
   const response = await client.messages.create({
     model: 'claude-haiku-4-5',
-    max_tokens: 8000,
+    max_tokens: 4096,
     system: systemPrompt,
     messages: [{ role: 'user', content: userPrompt }],
   })
@@ -145,7 +145,7 @@ Return only the final rewritten Arabic text.`
 
   const response = await client.messages.create({
     model: 'claude-haiku-4-5',
-    max_tokens: 8000,
+    max_tokens: 4096,
     system: ARABIC_REWRITE_PROMPT,
     messages: [{ role: 'user', content: userPrompt }],
   })

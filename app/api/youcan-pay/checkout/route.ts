@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   try {
     const { plan } = await req.json()
 
-    if (plan !== 'pro' && plan !== 'enterprise') {
+    if (!['starter', 'pro', 'enterprise'].includes(plan)) {
       return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
     }
 
@@ -30,7 +30,6 @@ export async function POST(req: NextRequest) {
       failureUrl: `${returnUrl}/settings?payment=failed`,
     })
 
-    console.log('YouCanPay checkout token:', token)
     if (!token.transactionId) {
       return NextResponse.json({ error: 'YouCanPay did not return a transaction_id', raw: token }, { status: 500 })
     }

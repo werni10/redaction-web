@@ -1,16 +1,47 @@
 import fs from 'fs'
 import path from 'path'
 
-// ─── JSON loaders ────────────────────────────────────────────────────────────
+// ─── In-memory cache — files read once per server lifetime ───────────────────
+const jsonCache = new Map<string, unknown>()
 
 function loadJSON<T>(filename: string): T | null {
+  if (jsonCache.has(filename)) return jsonCache.get(filename) as T
   try {
     const filePath = path.join(process.cwd(), 'data', filename)
     const raw = fs.readFileSync(filePath, 'utf-8')
-    return JSON.parse(raw) as T
+    const parsed = JSON.parse(raw) as T
+    jsonCache.set(filename, parsed)
+    return parsed
   } catch {
     return null
   }
+}
+
+// ─── Pre-built static appendix cache (built once, reused) ────────────────────
+let staticAppendixCache: string | null = null
+
+function getStaticAppendix(): string {
+  if (staticAppendixCache !== null) return staticAppendixCache
+  // Build everything except examples (examples are dynamic per source text)
+  const editorial = loadJSON<Parameters<typeof formatEditorial>[0]>('redaction_editorial_profile.json')
+  const styleSheet = loadJSON<Parameters<typeof formatStyleSheet>[0]>('style.json')
+  const ocpGlossary = loadJSON<Parameters<typeof formatOCPGlossary>[0]>('ocp_glossary.json')
+  const ocpTone = loadJSON<Parameters<typeof formatOCPTone>[0]>('ocp_tone.json')
+  const ocpRewriteRules = loadJSON<Parameters<typeof formatOCPRewriteRules>[0]>('ocp_rewrite_rules.json')
+  const ocpRhetoric = loadJSON<Parameters<typeof formatOCPRhetoric>[0]>('ocp_rhetoric.json')
+
+  const sections: string[] = []
+  if (editorial) sections.push(formatEditorial(editorial))
+  if (styleSheet) sections.push(formatStyleSheet(styleSheet))
+  if (ocpGlossary) sections.push(formatOCPGlossary(ocpGlossary))
+  if (ocpTone) sections.push(formatOCPTone(ocpTone))
+  if (ocpRewriteRules) sections.push(formatOCPRewriteRules(ocpRewriteRules))
+  if (ocpRhetoric) sections.push(formatOCPRhetoric(ocpRhetoric))
+
+  staticAppendixCache = sections.length
+    ? '\n\n---\n## RedAction style data\n\n' + sections.join('\n\n---\n\n')
+    : ''
+  return staticAppendixCache
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -91,26 +122,14 @@ interface OCPRhetoric {
 // ─── Builder ──────────────────────────────────────────────────────────────────
 
 export function buildStyleAppendix(sourceText: string): string {
-  const editorial = loadJSON<EditorialProfile>('redaction_editorial_profile.json')
-  const styleSheet = loadJSON<StyleSheet>('style.json')
+  // Static parts cached — only examples are dynamic per source text
+  const base = getStaticAppendix()
   const styleMemory = loadJSON<StyleMemory>('style_memory.json')
-  const ocpGlossary = loadJSON<OCPGlossary>('ocp_glossary.json')
-  const ocpTone = loadJSON<OCPTone>('ocp_tone.json')
-  const ocpRewriteRules = loadJSON<OCPRewriteRules>('ocp_rewrite_rules.json')
-  const ocpRhetoric = loadJSON<OCPRhetoric>('ocp_rhetoric.json')
 
-  const sections: string[] = []
+  const sections: string[] = [base]
 
-  if (editorial) sections.push(formatEditorial(editorial))
-  if (styleSheet) sections.push(formatStyleSheet(styleSheet))
   if (styleMemory) sections.push(formatStyleMemory(styleMemory, sourceText))
-  if (ocpGlossary) sections.push(formatOCPGlossary(ocpGlossary))
-  if (ocpTone) sections.push(formatOCPTone(ocpTone))
-  if (ocpRewriteRules) sections.push(formatOCPRewriteRules(ocpRewriteRules))
-  if (ocpRhetoric) sections.push(formatOCPRhetoric(ocpRhetoric))
-
-  if (sections.length === 0) return ''
-  return '\n\n---\n## RedAction style data\n\n' + sections.join('\n\n---\n\n')
+  return sections.filter(Boolean).join('\n\n---\n\n')
 }
 
 function formatEditorial(p: EditorialProfile): string {
